@@ -16,7 +16,7 @@ function addToList(){
         itemTime.classList.add("todo-createdAt");
         itemText.classList.add("todo-text");
         
-        itemPriority.innerText=selector.value+".";
+        itemPriority.innerText=selector.value;
         itemTime.innerText=dateString;
         itemText.innerText=textInput.value;
 
