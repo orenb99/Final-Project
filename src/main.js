@@ -35,10 +35,8 @@ function addToList(){
             counter.nextSibling.nextSibling.innerText="Thing to do";
         else
             counter.nextSibling.nextSibling.innerText="Things to do";
-
     }
 }
-
 
 function convertTimeFormat(date){
     let timeString=date.toTimeString();
