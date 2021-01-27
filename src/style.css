@@ -13,3 +13,8 @@
 #sort-button{
     margin-left: 20px;
 }
+.checked{
+    color:red;
+    /* text-decoration: line-through; */
+    text-decoration-line: line-through;
+}

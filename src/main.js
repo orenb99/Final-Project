@@ -4,28 +4,35 @@ const counter=document.getElementById("counter");
 const selector=document.getElementById("priority-selector");
 const viewSection=document.getElementById("view-section");
 const sortButton=document.getElementById("sort-button");
+//function calls and event listeners
 addButton.onclick=addToList;
 sortButton.onclick=prioritize;
-
 function addToList(){
     if(textInput.value!==""){
         let container=document.createElement("div");
         let itemPriority=document.createElement("div");
         let itemTime=document.createElement("div");
         let itemText=document.createElement("div");
+        let checkbox=document.createElement("input");
+        checkbox.type="checkbox";
         
         container.classList.add("todo-container");
         itemPriority.classList.add("todo-priority");
         itemTime.classList.add("todo-createdAt");
         itemText.classList.add("todo-text");
+        checkbox.classList.add("checkbox");
         
         itemPriority.innerText=selector.value;
         itemTime.innerText=convertTimeFormat(new Date());
         itemText.innerText=textInput.value;
 
+        container.append(checkbox);
         container.append(itemPriority);
         container.append(itemTime);
         container.append(itemText);
+        
+        checkbox.onchange=checked;
+
         viewSection.append(container);
         textInput.value="";
         textInput.focus();
@@ -66,4 +73,17 @@ function prioritize(){
     for(let item of sortedArr){
             viewSection.append(item);
     }
+}
+
+function checked(){
+    checkboxes=viewSection.querySelectorAll(".checkbox");
+    for(let box of checkboxes){
+        if(box.checked){
+            box.parentElement.classList.add("checked");
+            box.classList.remove("checked");
+        }
+        else
+            box.parentElement.classList.remove("checked");
+    }
+
 }
