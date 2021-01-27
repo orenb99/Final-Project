@@ -7,3 +7,9 @@
 #counter-div>h3{
     display: inline;
 }
+#counter-div{
+    margin-bottom: 20px;
+}
+#sort-button{
+    margin-left: 20px;
+}

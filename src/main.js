@@ -3,7 +3,10 @@ const addButton=document.getElementById("add-button");
 const counter=document.getElementById("counter");
 const selector=document.getElementById("priority-selector");
 const viewSection=document.getElementById("view-section");
+const sortButton=document.getElementById("sort-button");
 addButton.onclick=addToList;
+sortButton.onclick=prioritize;
+
 function addToList(){
     if(textInput.value!==""){
         let container=document.createElement("div");
@@ -52,6 +55,17 @@ return dateString;
 }
 
 function prioritize (){
-
-
+let itemsList=document.getElementsByClassName("todo-container");
+if(itemsList.length===0)
+    return;
+let sortedArr=[];
+    for(let i=5;i>0;i--){
+         for(let item of itemsList){
+            if(item.querySelector(".todo-priority").innerText===String(i))
+                sortedArr.push(item);
+         }
+    }
+    for(let item of sortedArr){
+        viewSection.append(item);
+    }
 }
