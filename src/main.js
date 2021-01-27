@@ -99,9 +99,9 @@ function checked(){
 }
 
 function deleteChecked(){
-    let checkedLines=viewSection.querySelectorAll(".checked");
+    let checkedLines=viewSection.getElementsByClassName("checked");
     counterChange(-checkedLines.length);
-    while(checkedLines!==[]){
+    while(checkedLines.length!==0){
         viewSection.removeChild(checkedLines[0]);
     }
     
