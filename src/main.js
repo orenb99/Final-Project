@@ -1,9 +1,8 @@
 const textInput=document.getElementById("text-input");
 const addButton=document.getElementById("add-button");
-const counterString=document.getElementById("counter");
+const counter=document.getElementById("counter");
 const selector=document.getElementById("priority-selector");
 const viewSection=document.getElementById("view-section");
-let counter=0;
 addButton.onclick=addToList;
 function addToList(){
     if(textInput.value!==""){
@@ -28,8 +27,7 @@ function addToList(){
         textInput.value="";
         textInput.focus();
 
-        counter++;
-        counterString.innerText=counter+" Things to do";
+        counter.innerText=""+(parseInt(counter.innerText)+1);
 
     }
 }
@@ -47,4 +45,9 @@ if(date.getMonth()<10)
     monthString="0"+monthString;
 dateString+=monthString+dayString+" "+timeString;
 return dateString;
+}
+
+function prioritize (){
+
+
 }
