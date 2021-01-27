@@ -4,9 +4,14 @@ const counter=document.getElementById("counter");
 const selector=document.getElementById("priority-selector");
 const viewSection=document.getElementById("view-section");
 const sortButton=document.getElementById("sort-button");
+const deleteButton=document.getElementById("delete-button");
+
 //function calls and event listeners
+
 addButton.onclick=addToList;
 sortButton.onclick=prioritize;
+deleteButton.onclick=deleteChecked;
+
 function addToList(){
     if(textInput.value!==""){
         let container=document.createElement("div");
@@ -37,11 +42,7 @@ function addToList(){
         textInput.value="";
         textInput.focus();
 
-        counter.innerText=""+(parseInt(counter.innerText)+1);
-        if(counter.innerText==="1")
-            counter.nextSibling.nextSibling.innerText="Thing to do";
-        else
-            counter.nextSibling.nextSibling.innerText="Things to do";
+        counterChange(1);
     }
 }
 
@@ -58,6 +59,15 @@ function convertTimeFormat(date){
     dateString+=monthString+dayString+" "+timeString;
     return dateString;
 }
+
+function counterChange(num){
+    counter.innerText=""+(parseInt(counter.innerText)+num);
+    if(counter.innerText==="1")
+        counter.nextSibling.nextSibling.innerText="Thing to do";
+    else
+        counter.nextSibling.nextSibling.innerText="Things to do";
+}
+
 
 function prioritize(){
     let itemsList=document.getElementsByClassName("todo-container");
@@ -76,7 +86,7 @@ function prioritize(){
 }
 
 function checked(){
-    checkboxes=viewSection.querySelectorAll(".checkbox");
+    let checkboxes=viewSection.querySelectorAll(".checkbox");
     for(let box of checkboxes){
         if(box.checked){
             box.parentElement.classList.add("checked");
@@ -86,4 +96,13 @@ function checked(){
             box.parentElement.classList.remove("checked");
     }
 
+}
+
+function deleteChecked(){
+    let checkedLines=viewSection.querySelectorAll(".checked");
+    counterChange(-checkedLines.length);
+    while(checkedLines!==[]){
+        viewSection.removeChild(checkedLines[0]);
+    }
+    
 }
