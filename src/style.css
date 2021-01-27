@@ -4,3 +4,6 @@
     font-weight: bold;
     font-size: large;
 }
+#counter-div>h3{
+    display: inline;
+}

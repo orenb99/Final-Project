@@ -28,6 +28,10 @@ function addToList(){
         textInput.focus();
 
         counter.innerText=""+(parseInt(counter.innerText)+1);
+        if(counter.innerText==="1")
+            counter.nextSibling.nextSibling.innerText="Thing to do";
+        else
+            counter.nextSibling.nextSibling.innerText="Things to do";
 
     }
 }
