@@ -30,15 +30,14 @@ function addToList(){
 }
 function convertTimeFormat(date){
 let timeString=date.toTimeString();
-let dateString=date.toDateString();
 timeString=timeString.slice(0,timeString.indexOf("G")-1);
-console.log(dateString);
+let dateString=date.getFullYear()+"-";
+let dayString=date.getDate();
+let monthString=(date.getMonth()+1)+"-";
+if(date.getDate()<10)
+    dayString="0"+dayString;
+if(date.getMonth()<10)
+    monthString="0"+monthString;
+dateString+=monthString+dayString+" "+timeString;
+return dateString;
 }
-function getMonthFromString(mon){
-
-    var d = Date.parse(mon + "1, 2012");
-    if(!isNaN(d)){
-       return new Date(d).getMonth() + 1;
-    }
-    return -1;
-  }
