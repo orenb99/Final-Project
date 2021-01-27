@@ -1,14 +1,14 @@
 const textInput=document.getElementById("text-input");
 const addButton=document.getElementById("add-button");
 const selector=document.getElementById("priority-selector");
-const list=document.getElementById("to-do-list");
+const viewSection=document.getElementById("view-section");
 
 addButton.onclick=addToList;
 function addToList(){
     if(textInput.value!==""){
-        let item=document.createElement("li");
-        item.innerText=textInput.value;
-        list.append(item);
+        let container=document.createElement("div");
+        container.innerText=textInput.value;
+        viewSection.append(container);
         textInput.value="";
         textInput.focus();
     }
