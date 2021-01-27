@@ -41,31 +41,31 @@ function addToList(){
 
 
 function convertTimeFormat(date){
-let timeString=date.toTimeString();
-timeString=timeString.slice(0,timeString.indexOf("G")-1);
-let dateString=date.getFullYear()+"-";
-let dayString=date.getDate();
-let monthString=(date.getMonth()+1)+"-";
-if(date.getDate()<10)
-    dayString="0"+dayString;
-if(date.getMonth()<10)
-    monthString="0"+monthString;
-dateString+=monthString+dayString+" "+timeString;
-return dateString;
+    let timeString=date.toTimeString();
+    timeString=timeString.slice(0,timeString.indexOf("G")-1);
+    let dateString=date.getFullYear()+"-";
+    let dayString=date.getDate();
+    let monthString=(date.getMonth()+1)+"-";
+    if(date.getDate()<10)
+        dayString="0"+dayString;
+    if(date.getMonth()<10)
+        monthString="0"+monthString;
+    dateString+=monthString+dayString+" "+timeString;
+    return dateString;
 }
 
-function prioritize (){
-let itemsList=document.getElementsByClassName("todo-container");
-if(itemsList.length===0)
-    return;
-let sortedArr=[];
+function prioritize(){
+    let itemsList=document.getElementsByClassName("todo-container");
+    if(itemsList.length===0)
+        return;
+    let sortedArr=[];
     for(let i=5;i>0;i--){
-         for(let item of itemsList){
+        for(let item of itemsList){
             if(item.querySelector(".todo-priority").innerText===String(i))
                 sortedArr.push(item);
-         }
+        }
     }
     for(let item of sortedArr){
-        viewSection.append(item);
+            viewSection.append(item);
     }
 }
