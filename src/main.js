@@ -8,7 +8,7 @@ const deleteButton=document.getElementById("delete-button");
 
 //function calls and event listeners
 
-addButton.onclick=addToList;
+addButton.addEventListener("click",addToList);
 addButton.addEventListener("click",save);
 sortButton.onclick=prioritize;
 deleteButton.onclick=deleteChecked;
@@ -28,14 +28,12 @@ function addToList(){
         itemText.classList.add("todo-text");
         checkbox.classList.add("checkbox");
         
-        itemPriority.innerText=selector.value;
-        itemTime.innerText=convertTimeFormat(new Date());
-        itemText.innerText=textInput.value;
-
         container.append(checkbox);
         container.append(itemPriority);
         container.append(itemTime);
         container.append(itemText);
+        
+        assignValues(container,selector.value,new Date(),textInput.value)
         
         checkbox.onchange=checked;
 
@@ -45,6 +43,12 @@ function addToList(){
 
         counterChange(1);
     }
+}
+
+function assignValues(container,priority,date,text){
+    container.querySelector(".todo-priority").innerText=priority;
+    container.querySelector(".todo-text").innerText=text;
+    container.querySelector(".todo-createdAt").innerText=convertTimeFormat(date);
 }
 
 function convertTimeFormat(date){
