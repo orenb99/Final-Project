@@ -28,6 +28,10 @@ function addToList(){
     else if(editButton.innerText==="save"){
         alert("Finish editing your list before adding new tasks!");
     }
+    else if(textInput.value===""){
+        alert("Write something to add!");
+        textInput.focus();
+    }
 }
 
 function assignValues(container,priority,date,text){
@@ -129,6 +133,11 @@ function deleteChecked(){
 }
 
 function edit(){
+    if(counter.innerText==="0"){
+        alert("Nothing to edit!");
+        textInput.focus();
+        return;
+    }
     let containers=viewSection.getElementsByClassName("todo-container");
     if(editButton.innerText==="edit mode"){
         editButton.innerText="save";
