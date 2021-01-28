@@ -163,6 +163,12 @@ function edit(){
             if(itemText.innerText!==tempContainers[i])
                 containers[i].querySelector(".todo-created-at").innerText=convertTimeFormat(new Date());
         }
+        for(let i=0;i<containers.length;i++){
+            if(containers[i].querySelector(".todo-text").innerText===""){
+                containers[i].classList.add("checked");
+            }
+        }
+        deleteChecked();
         save();
     }
     
