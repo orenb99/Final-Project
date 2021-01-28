@@ -37,7 +37,7 @@ function addToList(){
 function assignValues(container,priority,date,text){
     container.querySelector(".todo-priority").innerText=priority;
     container.querySelector(".todo-text").innerText=text;
-    container.querySelector(".todo-createdAt").innerText=date;
+    container.querySelector(".todo-created-at").innerText=date;
     textInput.value="";
 }
 
@@ -51,7 +51,7 @@ function addElements(){
 
     container.classList.add("todo-container");
     itemPriority.classList.add("todo-priority");
-    itemTime.classList.add("todo-createdAt");
+    itemTime.classList.add("todo-created-at");
     itemText.classList.add("todo-text");
     checkbox.classList.add("checkbox");
 
@@ -132,6 +132,7 @@ function deleteChecked(){
     
 }
 
+let tempContainers=[];
 function edit(){
     if(counter.innerText==="0"){
         alert("Nothing to edit!");
@@ -141,24 +142,28 @@ function edit(){
     let containers=viewSection.getElementsByClassName("todo-container");
     if(editButton.innerText==="edit mode"){
         editButton.innerText="save";
-        for(let container of containers){
+        for(let i=0;i<containers.length;i++){
+            tempContainers.push(containers[i].querySelector(".todo-text").innerText)
             let input=document.createElement("input");
             input.type="text";
-            input.setAttribute("value",container.querySelector(".todo-text").innerText);
+            input.setAttribute("value",containers[i].querySelector(".todo-text").innerText);
             input.classList.add("edit-input");
-            container.querySelector(".todo-text").remove();
-            container.append(input);
+            containers[i].querySelector(".todo-text").remove();
+            containers[i].append(input);   
         }
     }
     else if(editButton.innerText==="save"){
         editButton.innerText="edit mode";
-        for(let container of containers){
+        for(let i=0;i<containers.length;i++){
             let itemText=document.createElement("div");
-            itemText.innerText=container.querySelector(".edit-input").value;
+            itemText.innerText=containers[i].querySelector(".edit-input").value;
             itemText.classList.add("todo-text");
-            container.querySelector(".edit-input").remove();
-            container.append(itemText);
+            containers[i].querySelector(".edit-input").remove();
+            containers[i].append(itemText);
+            if(itemText.innerText!==tempContainers[i])
+                containers[i].querySelector(".todo-created-at").innerText=convertTimeFormat(new Date());
         }
+        save();
     }
     
 }
@@ -172,7 +177,7 @@ function save(){
     for(let item of initialArray){
         finalArray.push({
             priority : item.querySelector(".todo-priority").innerText,
-            date : item.querySelector(".todo-createdAt").innerText,
+            date : item.querySelector(".todo-created-at").innerText,
             text : item.querySelector(".todo-text").innerText,
             checkbox : item.querySelector(".checkbox").checked
         });
