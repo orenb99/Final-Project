@@ -1,3 +1,5 @@
+document.addEventListener("onload",save);
+
 const textInput=document.getElementById("text-input");
 const addButton=document.getElementById("add-button");
 const counter=document.getElementById("counter");
@@ -9,7 +11,6 @@ const deleteButton=document.getElementById("delete-button");
 //function calls and event listeners
 
 addButton.addEventListener("click",addToList);
-addButton.addEventListener("click",save);
 sortButton.onclick=prioritize;
 deleteButton.onclick=deleteChecked;
 
@@ -33,7 +34,7 @@ function addToList(){
         container.append(itemTime);
         container.append(itemText);
         
-        assignValues(container,selector.value,new Date(),textInput.value)
+        assignValues(container,selector.value,new Date(),textInput.value);
         
         checkbox.onchange=checked;
 
@@ -50,6 +51,8 @@ function assignValues(container,priority,date,text){
     container.querySelector(".todo-text").innerText=text;
     container.querySelector(".todo-createdAt").innerText=convertTimeFormat(date);
 }
+
+
 
 function convertTimeFormat(date){
     let timeString=date.toTimeString();
@@ -114,9 +117,9 @@ function deleteChecked(){
 
 function save(){
     localStorage.clear();
-    let itemArray=viewSection.getElementsByClassName("todo-container");
+    let initialArray=viewSection.getElementsByClassName("todo-container");
     let finalArray=[];
-    for(let item of itemArray){
+    for(let item of initialArray){
         finalArray.push({
             priority : item.querySelector(".todo-priority").innerText,
             time : item.querySelector(".todo-createdAt").innerText,
@@ -128,7 +131,10 @@ function save(){
     let myJSON=JSON.stringify(finalArray);
     localStorage.setItem("my-todo",myJSON);
 
-    let text=localStorage.getItem("my-todo");
-    let obj= JSON.parse(text);
-    console.log(obj);
+    let JSONText=localStorage.getItem("my-todo");
+    let itemArray= JSON.parse(JSONText);
+
+    for(let item of itemArray){
+        addToList();
+    }
 }
