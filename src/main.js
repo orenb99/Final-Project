@@ -16,28 +16,9 @@ deleteButton.onclick=deleteChecked;
 function addToList(){
     if(textInput.value!==""){
         let container=document.createElement("div");
-        let itemPriority=document.createElement("div");
-        let itemTime=document.createElement("div");
-        let itemText=document.createElement("div");
-        let checkbox=document.createElement("input");
-        checkbox.type="checkbox";
-        
-        container.classList.add("todo-container");
-        itemPriority.classList.add("todo-priority");
-        itemTime.classList.add("todo-createdAt");
-        itemText.classList.add("todo-text");
-        checkbox.classList.add("checkbox");
-        
-        container.append(checkbox);
-        container.append(itemPriority);
-        container.append(itemTime);
-        container.append(itemText);
-        
-        checkbox.onchange=checked;
-
+        container=addElements(container);
         assignValues(container,selector.value,new Date(),textInput.value);
         
-
         viewSection.append(container);
         textInput.value="";
         textInput.focus();
@@ -52,6 +33,28 @@ function assignValues(container,priority,date,text){
     container.querySelector(".todo-createdAt").innerText=convertTimeFormat(date);
 }
 
+function addElements(container){
+    let itemPriority=document.createElement("div");
+    let itemTime=document.createElement("div");
+    let itemText=document.createElement("div");
+    let checkbox=document.createElement("input");
+    checkbox.type="checkbox";
+
+    container.classList.add("todo-container");
+    itemPriority.classList.add("todo-priority");
+    itemTime.classList.add("todo-createdAt");
+    itemText.classList.add("todo-text");
+    checkbox.classList.add("checkbox");
+
+    container.append(checkbox);
+    container.append(itemPriority);
+    container.append(itemTime);
+    container.append(itemText);
+    checkbox.onchange=checked;
+
+    return container;
+
+}
 
 function convertTimeFormat(date){
     let timeString=date.toTimeString();
