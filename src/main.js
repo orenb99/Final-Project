@@ -1,4 +1,3 @@
-document.addEventListener("onload",save);
 
 const textInput=document.getElementById("text-input");
 const addButton=document.getElementById("add-button");
@@ -7,10 +6,10 @@ const selector=document.getElementById("priority-selector");
 const viewSection=document.getElementById("view-section");
 const sortButton=document.getElementById("sort-button");
 const deleteButton=document.getElementById("delete-button");
-
 //function calls and event listeners
-
+load();
 addButton.addEventListener("click",addToList);
+addButton.addEventListener("click",save);
 sortButton.onclick=prioritize;
 deleteButton.onclick=deleteChecked;
 
@@ -34,9 +33,10 @@ function addToList(){
         container.append(itemTime);
         container.append(itemText);
         
+        checkbox.onchange=checked;
+
         assignValues(container,selector.value,new Date(),textInput.value);
         
-        checkbox.onchange=checked;
 
         viewSection.append(container);
         textInput.value="";
@@ -51,7 +51,6 @@ function assignValues(container,priority,date,text){
     container.querySelector(".todo-text").innerText=text;
     container.querySelector(".todo-createdAt").innerText=convertTimeFormat(date);
 }
-
 
 
 function convertTimeFormat(date){
@@ -122,7 +121,7 @@ function save(){
     for(let item of initialArray){
         finalArray.push({
             priority : item.querySelector(".todo-priority").innerText,
-            time : item.querySelector(".todo-createdAt").innerText,
+            date : item.querySelector(".todo-createdAt").innerText,
             text : item.querySelector(".todo-text").innerText,
             checkbox : item.querySelector(".checkbox").checked
         });
@@ -130,11 +129,13 @@ function save(){
     
     let myJSON=JSON.stringify(finalArray);
     localStorage.setItem("my-todo",myJSON);
-
-    let JSONText=localStorage.getItem("my-todo");
-    let itemArray= JSON.parse(JSONText);
-
-    for(let item of itemArray){
-        addToList();
-    }
 }
+
+function load(){
+    let JSONText=localStorage.getItem("my-todo");
+        let itemArray= JSON.parse(JSONText);
+    
+        for(let item of itemArray){
+            console.log(item);
+        }
+    }
