@@ -1,4 +1,3 @@
-
 const textInput=document.getElementById("text-input");
 const addButton=document.getElementById("add-button");
 const counter=document.getElementById("counter");
@@ -116,6 +115,10 @@ function counterChange(num){
 
 
 function prioritize(){
+    if(editButton.innerText==="save"){
+        alert("Stop editing to sort");
+        return;
+    }
     let itemsList=document.getElementsByClassName("todo-container");
     if(itemsList.length===0)
         return;
@@ -163,6 +166,7 @@ function edit(){
     }
     let containers=viewSection.getElementsByClassName("todo-container");
     if(editButton.innerText==="edit mode"){
+        tempContainers=[];
         editButton.innerText="save";
         for(let i=0;i<containers.length;i++){
             tempContainers.push(containers[i].querySelector(".todo-text").innerText)
