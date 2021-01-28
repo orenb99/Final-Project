@@ -15,15 +15,8 @@ deleteButton.onclick=deleteChecked;
 
 function addToList(){
     if(textInput.value!==""){
-        let container=document.createElement("div");
-        container=addElements(container);
+        let container=addElements();
         assignValues(container,selector.value,new Date(),textInput.value);
-        
-        viewSection.append(container);
-        textInput.value="";
-        textInput.focus();
-
-        counterChange(1);
     }
 }
 
@@ -33,7 +26,8 @@ function assignValues(container,priority,date,text){
     container.querySelector(".todo-createdAt").innerText=convertTimeFormat(date);
 }
 
-function addElements(container){
+function addElements(){
+    let container=document.createElement("div");
     let itemPriority=document.createElement("div");
     let itemTime=document.createElement("div");
     let itemText=document.createElement("div");
@@ -51,6 +45,11 @@ function addElements(container){
     container.append(itemTime);
     container.append(itemText);
     checkbox.onchange=checked;
+
+    viewSection.append(container);
+    textInput.value="";
+    textInput.focus();
+    counterChange(1);
 
     return container;
 
@@ -139,6 +138,7 @@ function load(){
         let itemArray= JSON.parse(JSONText);
     
         for(let item of itemArray){
-            console.log(item);
+            let container=addElements();
+            assignValues(container,item.priority,new Date(),item.text);
         }
     }
