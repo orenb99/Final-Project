@@ -10,15 +10,17 @@ const deleteButton=document.getElementById("delete-button");
 load();
 addButton.addEventListener("click",addToList);
 addButton.addEventListener("click",save);
-sortButton.onclick=prioritize;
-deleteButton.onclick=deleteChecked;
+sortButton.addEventListener("click",prioritize);
+sortButton.addEventListener("click",save);
+deleteButton.addEventListener("click",deleteChecked);
+deleteButton.addEventListener("click",save);
+
 
 function addToList(){
     if(textInput.value!==""){
         let correctDate=convertTimeFormat(new Date());
         let container=addElements();
         assignValues(container,selector.value,correctDate,textInput.value);
-        textInput.value="";
     }
 }
 
@@ -26,6 +28,7 @@ function assignValues(container,priority,date,text){
     container.querySelector(".todo-priority").innerText=priority;
     container.querySelector(".todo-text").innerText=text;
     container.querySelector(".todo-createdAt").innerText=date;
+    textInput.value="";
 }
 
 function addElements(){
@@ -76,6 +79,8 @@ function counterChange(num){
         counter.nextSibling.nextSibling.innerText="Thing to do";
     else
         counter.nextSibling.nextSibling.innerText="Things to do";
+    if(counter.innerText==="0")
+        counter.nextSibling.nextSibling.innerText+="! You're free!";
 }
 
 
