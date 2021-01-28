@@ -9,6 +9,7 @@ const deleteButton=document.getElementById("delete-button");
 //function calls and event listeners
 
 addButton.onclick=addToList;
+addButton.addEventListener("click",save);
 sortButton.onclick=prioritize;
 deleteButton.onclick=deleteChecked;
 
@@ -105,4 +106,25 @@ function deleteChecked(){
         viewSection.removeChild(checkedLines[0]);
     }
     
+}
+
+function save(){
+    localStorage.clear();
+    let itemArray=viewSection.getElementsByClassName("todo-container");
+    let finalArray=[];
+    for(let item of itemArray){
+        finalArray.push({
+            priority : item.querySelector(".todo-priority").innerText,
+            time : item.querySelector(".todo-createdAt").innerText,
+            text : item.querySelector(".todo-text").innerText,
+            checkbox : item.querySelector(".checkbox").checked
+        });
+    }
+    
+    let myJSON=JSON.stringify(finalArray);
+    localStorage.setItem("my-todo",myJSON);
+
+    let text=localStorage.getItem("my-todo");
+    let obj= JSON.parse(text);
+    console.log(obj);
 }
