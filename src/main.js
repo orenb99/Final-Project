@@ -12,9 +12,7 @@ const editButton=document.getElementById("edit-button");
 load();
 addButton.addEventListener("click",addToList);
 sortButton.addEventListener("click",prioritize);
-sortButton.addEventListener("click",save);
 deleteButton.addEventListener("click",deleteChecked);
-deleteButton.addEventListener("click",save);
 editButton.addEventListener("click",edit);
 
 
@@ -47,19 +45,42 @@ function addElements(){
     let itemTime=document.createElement("div");
     let itemText=document.createElement("div");
     let checkbox=document.createElement("input");
+    let incPriorityButton=document.createElement("button");
+    let decPriorityButton=document.createElement("button");
+
     checkbox.type="checkbox";
+    checkbox.onchange=checked;
 
     container.classList.add("todo-container");
     itemPriority.classList.add("todo-priority");
     itemTime.classList.add("todo-created-at");
     itemText.classList.add("todo-text");
     checkbox.classList.add("checkbox");
+    incPriorityButton.classList.add("priority-change-button");
+    decPriorityButton.classList.add("priority-change-button");
 
     container.append(checkbox);
+    container.append(incPriorityButton);
+    container.append(decPriorityButton);
     container.append(itemPriority);
     container.append(itemTime);
     container.append(itemText);
-    checkbox.onchange=checked;
+    incPriorityButton.innerText="+";
+    decPriorityButton.innerText="-";
+
+    incPriorityButton.addEventListener("click",function (){
+        if(parseInt(itemPriority.innerText)<5){
+            parseInt(itemPriority.innerText++);
+            save();
+        }
+    });
+    decPriorityButton.addEventListener("click",function (){
+        if(parseInt(itemPriority.innerText)>1){
+            parseInt(itemPriority.innerText--);
+            save();
+        }
+    });
+    
 
     viewSection.append(container);
     textInput.focus();
@@ -108,6 +129,7 @@ function prioritize(){
     for(let item of sortedArr){
             viewSection.append(item);
     }
+    save();
 }
 
 function checked(){
@@ -129,7 +151,7 @@ function deleteChecked(){
     while(checkedLines.length!==0){
         viewSection.removeChild(checkedLines[0]);
     }
-    
+    save();
 }
 
 let tempContainers=[];
