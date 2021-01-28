@@ -1,3 +1,7 @@
+body{
+    text-align: center;
+}
+
 .todo-container> div{
     display: inline;
     margin-right: 10px;
