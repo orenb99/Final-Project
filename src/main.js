@@ -25,9 +25,9 @@ function addToList(){
 }
 
 function assignValues(container,priority,date,text){
-    container.querySelector(".todo-priority").innerText=priority+"‎ ‎";
+    container.querySelector(".todo-priority").innerText=priority;
     container.querySelector(".todo-text").innerText=text;
-    container.querySelector(".todo-createdAt").innerText=date+"‎‎‎‎‎ ‎ ‎";
+    container.querySelector(".todo-createdAt").innerText=date;
     textInput.value="";
 }
 

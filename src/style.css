@@ -1,10 +1,7 @@
-body{
-    text-align: center;
-}
 
 .todo-container> div{
     display: inline;
-    /* margin-right: 10px; */
+    margin-right: 10px;
     font-weight: bold;
     font-size: large;
 }
@@ -21,4 +18,9 @@ body{
     color:red;
     text-decoration-line: line-through;
     text-decoration-thickness: 5px;
+}
+.checkbox{
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
 }
