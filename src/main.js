@@ -11,7 +11,6 @@ const editButton=document.getElementById("edit-button");
 //function calls and event listeners
 load();
 addButton.addEventListener("click",addToList);
-addButton.addEventListener("click",save);
 sortButton.addEventListener("click",prioritize);
 sortButton.addEventListener("click",save);
 deleteButton.addEventListener("click",deleteChecked);
@@ -20,10 +19,14 @@ editButton.addEventListener("click",edit);
 
 
 function addToList(){
-    if(textInput.value!==""){
+    if(textInput.value!==""&&editButton.innerText==="edit mode"){
         let correctDate=convertTimeFormat(new Date());
         let container=addElements();
         assignValues(container,selector.value,correctDate,textInput.value);
+        save();
+    }
+    else if(editButton.innerText==="save"){
+        alert("Finish editing your list before adding new tasks!");
     }
 }
 
