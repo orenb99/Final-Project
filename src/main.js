@@ -6,6 +6,8 @@ const selector=document.getElementById("priority-selector");
 const viewSection=document.getElementById("view-section");
 const sortButton=document.getElementById("sort-button");
 const deleteButton=document.getElementById("delete-button");
+const editButton=document.getElementById("edit-button");
+
 //function calls and event listeners
 load();
 addButton.addEventListener("click",addToList);
@@ -14,6 +16,7 @@ sortButton.addEventListener("click",prioritize);
 sortButton.addEventListener("click",save);
 deleteButton.addEventListener("click",deleteChecked);
 deleteButton.addEventListener("click",save);
+editButton.addEventListener("click",edit);
 
 
 function addToList(){
@@ -121,6 +124,34 @@ function deleteChecked(){
     }
     
 }
+
+function edit(){
+    let containers=viewSection.getElementsByClassName("todo-container");
+    if(editButton.innerText==="edit mode"){
+        editButton.innerText="save";
+        for(let container of containers){
+            let input=document.createElement("input");
+            input.type="text";
+            input.setAttribute("value",container.querySelector(".todo-text").innerText);
+            input.classList.add("edit-input");
+            container.querySelector(".todo-text").remove();
+            container.append(input);
+        }
+    }
+    else if(editButton.innerText==="save"){
+        editButton.innerText="edit mode";
+        for(let container of containers){
+            let itemText=document.createElement("div");
+            itemText.innerText=container.querySelector(".edit-input").value;
+            itemText.classList.add("todo-text");
+            container.querySelector(".edit-input").remove();
+            container.append(itemText);
+        }
+    }
+    
+}
+
+
 
 function save(){
     localStorage.clear();
