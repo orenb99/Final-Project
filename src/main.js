@@ -22,13 +22,13 @@ function addToList(){
         assignValues(container,selector.value,correctDate,textInput.value);
         save();
     }
-    else if(editButton.innerText==="save"){
-        alert("Finish editing your list before adding new tasks!");
-    }
-    else if(textInput.value===""){
-        alert("Write something to add!");
-        textInput.focus();
-    }
+    // else if(editButton.innerText==="save"){
+    //     alert("Finish editing your list before adding new tasks!");
+    // }
+    // else if(textInput.value===""){
+    //     alert("Write something to add!");
+    //     textInput.focus();
+    // }
 }
 
 function assignValues(container,priority,date,text){
@@ -222,7 +222,8 @@ function save(){
 function load(){
     let JSONText=localStorage.getItem("my-todo");
         let itemArray= JSON.parse(JSONText);
-    
+        if(!itemArray)
+            return;
         for(let item of itemArray){
             let container=addElements();
             assignValues(container,item.priority,item.date,item.text)

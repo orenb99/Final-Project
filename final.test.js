@@ -148,6 +148,7 @@ describe(projectName, () => {
     await page.type("#text-input", secondTaskText);
     await page.select("#priority-selector", secondTaskPriority);
     await page.click("#add-button");
+    await page.click("#add-button");
     const inputElement = await page.$("#text-input");
     const currentInput = await (
       await inputElement.getProperty("value")
