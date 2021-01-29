@@ -27,3 +27,24 @@
 .priority-change-button{
     margin-right:10px;
 }
+
+
+.list-section{
+    text-align: center;
+    width: 48vw;
+    height: 100vh;
+    padding-top: 30px;
+    margin-top: 30px;
+}
+#view-section{
+    float: left;
+    background-color: red;
+    
+}
+#done-section{
+    float: right;
+    background-color: green;
+
+
+
+}

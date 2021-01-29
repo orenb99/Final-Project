@@ -1,5 +1,5 @@
 -all minimal conditions- Done!
--getting the test's working-
+-getting the test's working- almost all!
 -adding checkboxes to the container with delete option later- Done!
 -undo- 
 -drag and drop- 
@@ -8,5 +8,7 @@
 -adding priority inc and dec buttons- Done!
 -Styling- 
 -change color according to the priority- 
+-transform to JSON bin-
+-get most of the buttons to a fixed toolbar
 
 explain about every function
