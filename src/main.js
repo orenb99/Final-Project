@@ -14,8 +14,6 @@ addButton.addEventListener("click",addToList);
 sortButton.addEventListener("click",prioritize);
 deleteButton.addEventListener("click",deleteChecked);
 editButton.addEventListener("click",edit);
-
-
 function addToList(){
     if(textInput.value!==""&&editButton.innerText==="edit mode"){
         let correctDate=convertTimeFormat(new Date());
@@ -235,3 +233,11 @@ function load(){
             assignValues(container,item.priority,item.date,item.text)
         }
     }
+
+function draggable(container){
+    container.addEventListener("click",function (event){
+
+    });
+    
+}
+
