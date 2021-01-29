@@ -3,6 +3,7 @@ const addButton=document.getElementById("add-button");
 const counter=document.getElementById("counter");
 const selector=document.getElementById("priority-selector");
 const viewSection=document.getElementById("view-section");
+const doneSection=document.getElementById("done-section");
 const sortButton=document.getElementById("sort-button");
 const deleteButton=document.getElementById("delete-button");
 const editButton=document.getElementById("edit-button");
@@ -22,13 +23,13 @@ function addToList(){
         assignValues(container,selector.value,correctDate,textInput.value);
         save();
     }
-    // else if(editButton.innerText==="save"){
-    //     alert("Finish editing your list before adding new tasks!");
-    // }
-    // else if(textInput.value===""){
-    //     alert("Write something to add!");
-    //     textInput.focus();
-    // }
+    else if(editButton.innerText==="save"){
+        alert("Finish editing your list before adding new tasks!");
+    }
+    else if(textInput.value===""){
+        alert("Write something to add!");
+        textInput.focus();
+    }
 }
 
 function assignValues(container,priority,date,text){
@@ -176,6 +177,8 @@ function edit(){
             input.classList.add("edit-input");
             containers[i].querySelector(".todo-text").remove();
             containers[i].append(input);   
+            containers[i].classList.add("editable");
+            containers[i].draggable="true";
         }
     }
     else if(editButton.innerText==="save"){
@@ -188,6 +191,9 @@ function edit(){
             containers[i].append(itemText);
             if(itemText.innerText!==tempContainers[i])
                 containers[i].querySelector(".todo-created-at").innerText=convertTimeFormat(new Date());
+            containers[i].classList.remove("editable");
+            containers[i].draggable="false";
+
         }
         for(let i=0;i<containers.length;i++){
             if(containers[i].querySelector(".todo-text").innerText===""){
