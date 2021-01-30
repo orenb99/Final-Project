@@ -1,14 +1,18 @@
 -all minimal conditions- Done!
 -getting the test's working- almost all!
 -adding checkboxes to the container with delete option later- Done!
--undo- 
--drag and drop- 
+-undo- Done!
 -localStorage- Done!
 -edit mode - Done!
 -adding priority inc and dec buttons- Done!
--Styling- 
--change color according to the priority- 
--transform to JSON bin-
--get most of the buttons to a fixed toolbar
 
-explain about every function
+-drag and drop toolbar- 
+-transform to JSON bin-
+
+-Styling- 
+-change color according to the priority (an interactive way with the client in the toolbar)- 
+-get most of the buttons to a fixed toolbar
+-finish irritation-
+-explain about every function-
+
+-create a test-

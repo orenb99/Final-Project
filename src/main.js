@@ -15,7 +15,7 @@ addButton.addEventListener("click",addToList);
 sortButton.addEventListener("click",prioritize);
 deleteButton.addEventListener("click",deleteChecked);
 editButton.addEventListener("click",edit);
-undoButton.addEventListener("click",loadPrevious);
+undoButton.addEventListener("click",undo);
 function addToList(){
     if(textInput.value!==""&&editButton.innerText==="edit mode"){
         savePrevious();
@@ -28,7 +28,6 @@ function addToList(){
         alert("Finish editing your list before adding new tasks!");
     }
     else if(textInput.value===""){
-        alert("Write something to add!");
         textInput.focus();
     }
 }
@@ -71,14 +70,12 @@ function addElements(){
 
     incPriorityButton.addEventListener("click",function (){
         if(parseInt(itemPriority.innerText)<5){
-            savePrevious();
             parseInt(itemPriority.innerText++);
             save();
         }
     });
     decPriorityButton.addEventListener("click",function (){
         if(parseInt(itemPriority.innerText)>1){
-            savePrevious();
             parseInt(itemPriority.innerText--);
             save();
         }
@@ -162,16 +159,24 @@ function deleteChecked(){
     }
     save();
 }
+function deleteEmpty(){
+    let checkedLines=viewSection.getElementsByClassName("empty");
+    counterChange(-checkedLines.length);
+    while(checkedLines.length!==0){
+        viewSection.removeChild(checkedLines[0]);
+    }
+    save();
+}
 
 let tempContainers=[];
 function edit(){
     if(counter.innerText==="0"){
-        alert("Nothing to edit!");
         textInput.focus();
         return;
     }
     let containers=viewSection.getElementsByClassName("todo-container");
     if(editButton.innerText==="edit mode"){
+        savePrevious();
         tempContainers=[];
         editButton.innerText="save";
         for(let i=0;i<containers.length;i++){
@@ -194,23 +199,20 @@ function edit(){
             containers[i].append(itemText);
             if(itemText.innerText!==tempContainers[i])
                 containers[i].querySelector(".todo-created-at").innerText=convertTimeFormat(new Date());
-            containers[i].classList.remove("editable");
-            containers[i].draggable="false";
 
         }
         for(let i=0;i<containers.length;i++){
             if(containers[i].querySelector(".todo-text").innerText===""){
-                containers[i].classList.add("checked");
+                containers[i].classList.add("empty");
             }
         }
-        deleteChecked();
+        deleteEmpty();
         save();
     }
     
 }
 
-
-
+//JSON local storage
 function save(){
     localStorage.removeItem("my-todo");
     let initialArray=viewSection.getElementsByClassName("todo-container");
@@ -252,15 +254,13 @@ function savePrevious(){
             checkbox : item.querySelector(".checkbox").checked
         });
     }
-        
+    console.log(finalArray);
     let myJSON=JSON.stringify(finalArray);
     localStorage.setItem("undo",myJSON);
 }
-function loadPrevious(){
-    alert("undone");
+function undo(){
     let JSONText=localStorage.getItem("undo");
     let itemArray= JSON.parse(JSONText);
-    console.log(itemArray);
     if(!itemArray)
         return;
     let containers=viewSection.getElementsByClassName("todo-container");
@@ -271,9 +271,10 @@ function loadPrevious(){
     }
     for(let item of itemArray){
         let container=addElements();
-        assignValues(container,item.priority,item.date,item.text)
+        assignValues(container,item.priority,item.date,item.text);
     }
     localStorage.removeItem("undo");
+    editButton.innerText="edit mode";
 }
 
 
