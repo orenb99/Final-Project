@@ -175,8 +175,6 @@ function edit(){
             input.classList.add("edit-input");
             containers[i].querySelector(".todo-text").remove();
             containers[i].append(input);   
-            containers[i].classList.add("editable");
-            containers[i].draggable="true";
         }
     }
     else if(editButton.innerText==="save"){
@@ -234,10 +232,4 @@ function load(){
         }
     }
 
-function draggable(container){
-    container.addEventListener("click",function (event){
-
-    });
-    
-}
 
