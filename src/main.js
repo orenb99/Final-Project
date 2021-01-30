@@ -254,7 +254,6 @@ function savePrevious(){
             checkbox : item.querySelector(".checkbox").checked
         });
     }
-    console.log(finalArray);
     let myJSON=JSON.stringify(finalArray);
     localStorage.setItem("undo",myJSON);
 }
@@ -275,6 +274,7 @@ function undo(){
     }
     localStorage.removeItem("undo");
     editButton.innerText="edit mode";
+    save();
 }
 
 
