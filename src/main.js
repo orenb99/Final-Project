@@ -7,6 +7,7 @@ const doneSection=document.getElementById("done-section");
 const sortButton=document.getElementById("sort-button");
 const deleteButton=document.getElementById("delete-button");
 const editButton=document.getElementById("edit-button");
+const undoButton=document.getElementById("undo-button");
 
 //function calls and event listeners
 load();
@@ -14,8 +15,10 @@ addButton.addEventListener("click",addToList);
 sortButton.addEventListener("click",prioritize);
 deleteButton.addEventListener("click",deleteChecked);
 editButton.addEventListener("click",edit);
+undoButton.addEventListener("click",loadPrevious);
 function addToList(){
     if(textInput.value!==""&&editButton.innerText==="edit mode"){
+        savePrevious();
         let correctDate=convertTimeFormat(new Date());
         let container=addElements();
         assignValues(container,selector.value,correctDate,textInput.value);
@@ -68,12 +71,14 @@ function addElements(){
 
     incPriorityButton.addEventListener("click",function (){
         if(parseInt(itemPriority.innerText)<5){
+            savePrevious();
             parseInt(itemPriority.innerText++);
             save();
         }
     });
     decPriorityButton.addEventListener("click",function (){
         if(parseInt(itemPriority.innerText)>1){
+            savePrevious();
             parseInt(itemPriority.innerText--);
             save();
         }
@@ -114,6 +119,7 @@ function counterChange(num){
 
 
 function prioritize(){
+    savePrevious();
     if(editButton.innerText==="save"){
         alert("Stop editing to sort");
         return;
@@ -148,6 +154,7 @@ function checked(){
 }
 
 function deleteChecked(){
+    savePrevious();
     let checkedLines=viewSection.getElementsByClassName("checked");
     counterChange(-checkedLines.length);
     while(checkedLines.length!==0){
@@ -205,7 +212,7 @@ function edit(){
 
 
 function save(){
-    localStorage.clear();
+    localStorage.removeItem("my-todo");
     let initialArray=viewSection.getElementsByClassName("todo-container");
     let finalArray=[];
     for(let item of initialArray){
@@ -232,9 +239,9 @@ function load(){
         }
     }
 
-    
+
 function savePrevious(){
-    localStorage.clear();
+    localStorage.removeItem("undo");
     let initialArray=viewSection.getElementsByClassName("todo-container");
     let finalArray=[];
     for(let item of initialArray){
@@ -250,14 +257,23 @@ function savePrevious(){
     localStorage.setItem("undo",myJSON);
 }
 function loadPrevious(){
-    let JSONText=localStorage.getItem("my-todo");
+    alert("undone");
+    let JSONText=localStorage.getItem("undo");
     let itemArray= JSON.parse(JSONText);
+    console.log(itemArray);
     if(!itemArray)
         return;
+    let containers=viewSection.getElementsByClassName("todo-container");
+    
+    while(containers.length!==0){
+        viewSection.removeChild(containers[0]);
+        counterChange(-1);
+    }
     for(let item of itemArray){
         let container=addElements();
         assignValues(container,item.priority,item.date,item.text)
     }
+    localStorage.removeItem("undo");
 }
 
 
