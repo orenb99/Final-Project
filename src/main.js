@@ -232,4 +232,32 @@ function load(){
         }
     }
 
+    
+function savePrevious(){
+    localStorage.clear();
+    let initialArray=viewSection.getElementsByClassName("todo-container");
+    let finalArray=[];
+    for(let item of initialArray){
+        finalArray.push({
+            priority : item.querySelector(".todo-priority").innerText,
+            date : item.querySelector(".todo-created-at").innerText,
+            text : item.querySelector(".todo-text").innerText,
+            checkbox : item.querySelector(".checkbox").checked
+        });
+    }
+        
+    let myJSON=JSON.stringify(finalArray);
+    localStorage.setItem("undo",myJSON);
+}
+function loadPrevious(){
+    let JSONText=localStorage.getItem("my-todo");
+    let itemArray= JSON.parse(JSONText);
+    if(!itemArray)
+        return;
+    for(let item of itemArray){
+        let container=addElements();
+        assignValues(container,item.priority,item.date,item.text)
+    }
+}
+
 
