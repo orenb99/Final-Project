@@ -1,3 +1,4 @@
+"use strict"
 const textInput=document.getElementById("text-input");
 const addButton=document.getElementById("add-button");
 const counter=document.getElementById("counter");
@@ -277,4 +278,22 @@ function undo(){
     save();
 }
 
+//JSON.bin
+const ROOT = "https://api.jsonbin.io/v3/b/";
+const BIN_ID = "6015c46a014e36492231f49b";
 
+async function get() {
+    
+    const init = {
+        method: "GET"
+    }
+    const request = new Request(ROOT + BIN_ID + "/latest", init);
+    const response = await fetch(request);
+    const body = await response.json();
+    console.log(response);
+    console.log(body);
+    console.log(body.record["my-todo"][0].text);
+    console.log(body.record["my-todo"][1].text);
+}
+
+get();
