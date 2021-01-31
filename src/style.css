@@ -47,23 +47,16 @@
     padding-bottom: 20px;
 }
 
-.list-section{
+
+#view-section{
     text-align: center;
     width: 48vw;
     height: 100vh;
     padding-top: 30px;
     margin-top: 30px;
-}
-#view-section{
     float: left;
     border: solid red;
     background-color: rgb(255,0,0,0.3);
-    
-}
-#done-section{
-    float: right;
-    border: solid green;
-    background-color: rgb(0,255,0,0.3);
     
 }
 #undo-button{
@@ -84,3 +77,19 @@
     border-width: 3px;
     background-color:rgb(219, 216, 216);
 }
+
+#toolbar{
+    text-align: center;
+    position: fixed;
+    width: 400px;
+    z-index: 1;
+    left: 50vw;
+}
+#toolbar-title{
+    border: solid;
+}
+#tools{
+    border: solid;
+    padding: 20px;
+}
+    

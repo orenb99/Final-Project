@@ -22,7 +22,6 @@ editButton.addEventListener("click",edit);
 undoButton.addEventListener("click",undoBin);
 function addToList(){
     if(textInput.value!==""&&editButton.innerText==="edit mode"){
-        ////savePrevious();
         let correctDate=convertTimeFormat(new Date());
         let container=addElements();
         assignValues(container,selector.value,correctDate,textInput.value);
@@ -120,7 +119,6 @@ function counterChange(){
 
 
 function prioritize(){
-    ////savePrevious();
     if(editButton.innerText==="save"){
         alert("Stop editing to sort");
         return;
@@ -155,7 +153,6 @@ function checked(){
 }
 
 function deleteChecked(){
-    ////savePrevious();
     let checkedLines=viewSection.getElementsByClassName("checked");
     counterChange();
     while(checkedLines.length!==0){
@@ -179,7 +176,6 @@ function edit(){
     }
     let containers=viewSection.getElementsByClassName("todo-container");
     if(editButton.innerText==="edit mode"){
-        //savePrevious();
         tempContainers=[];
         editButton.innerText="save";
         for(let i=0;i<containers.length;i++){
@@ -215,7 +211,7 @@ function edit(){
     
 }
 
-//JSON local storage
+//JSON local storage (not used)
 function save(){
     localStorage.removeItem("my-todo");
     let initialArray=viewSection.getElementsByClassName("todo-container");
@@ -320,6 +316,8 @@ async function get() {
     const body = await response.json();
     let itemArray=body.record["my-todo"];
     currentVersion=body.record["version"];
+    if(itemArray===null)
+        return;
     for(let item of itemArray){
         let container=addElements();
         assignValues(container,item.priority,item.date,item.text);
@@ -329,7 +327,7 @@ async function get() {
 
 async function loadBin(){
     await get();
-    undoText.innerText=undoCounter;
+    undoText.innerText=parseInt(currentVersion-undoCounter);
     versionText.innerText=currentVersion;
 }
 async function updateBin(){
@@ -337,7 +335,7 @@ async function updateBin(){
     counterChange();
     await put(containers);
     undoCounter=0;
-    undoText.innerText=undoCounter;
+    undoText.innerText=parseInt(currentVersion-undoCounter);
     versionText.innerText=currentVersion;
 
 }
@@ -364,6 +362,6 @@ async function undoBin(){
         assignValues(container,item.priority,item.date,item.text);
     }
     counterChange();
-    undoText.innerText=undoCounter;
+    undoText.innerText=parseInt(currentVersion-undoCounter);
     versionText.innerText=currentVersion;
 }

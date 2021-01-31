@@ -16,16 +16,10 @@
       <div id="version-div">
         <h3 id="version-title">Bin Version : </h3>
         <h3 id="version">0</h3>
-        <h3 id="undoings-title">Undoings : </h3>
+        <h3 id="undoings-title">Undo Version : </h3>
         <h3 id="undoings">0</h3>
         
       </div>
-        <button id="sort-button">sort</button>
-        <button id="delete-button">delete checked</button>
-        <button id="edit-button">edit mode</button>
-        <img src="imgs/undo.png" id="undo-button" alt="undo">
-
-      
       <input type="text" id="text-input">
 
       <select id="priority-selector">
@@ -41,8 +35,15 @@
 
     <section id="view-section" class="list-section">
     </section>
-    <section id="done-section" class="list-section">
-    </section>
+    <nav id="toolbar">
+      <div id="toolbar-title"><h4>Toolbar</h4></div>
+      <div id="tools">
+        <button id="sort-button">sort</button>
+        <button id="delete-button">delete checked</button>
+        <button id="edit-button">edit mode</button>
+        <img src="imgs/undo.png" id="undo-button" alt="undo">
+      </div>
+    </nav>
     <script src="./main.js"></script>
   </body>
 </html>
