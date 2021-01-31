@@ -1,22 +1,24 @@
 :root{
-    --bg:black;
-    --p1color :rgb(0, 153, 255);
-    --p2color :rgb(0, 130, 231);
-    --p3color :rgb(0, 110, 255);
-    --p4color :rgb(0, 90, 255);
-    --p5color :rgb(0, 68, 255);
-    --border1 :rgb(10, 10, 10);
+    --bg:#000000;
+    --p1color :#0099FF;
+    --p2color :#0082E6;
+    --p3color :#0173ca;
+    --p4color :#005AFF;
+    --p5color :#0044FF;
+    --border1 :#101010;
 }
 #body{
     font-family: "American Typewriter", serif;
     color: var(--p1color);
     background-color: var(--bg);
+    transition: 1s;
 }
 select,option,input[type="text"],#add-button{
     color: var(--p1color);
     background-color: var(--bg);
     border-color: var(--p1color);
     margin: 0 10px 0 10px;
+    transition: 1s;
 }
 #title{
     margin: 20px;
@@ -29,7 +31,7 @@ select,option,input[type="text"],#add-button{
 .todo-container{
     margin: 10px 150px 30px 150px;
     font-size: 25px;
-    transition: 0.5s;
+    transition: 1s;
 }
 #counter-div>h3{
     display: inline;
@@ -60,6 +62,7 @@ select,option,input[type="text"],#add-button{
 .priority-change-button{
     margin-right:10px;
     background-color: var(--bg);
+    transition: 1s;
 }
 button:hover{
     cursor: pointer;
@@ -91,6 +94,7 @@ button:hover{
     top: 10px;
     background-color: var(--p2color);
     box-shadow: 1px 1px black;
+    transition: 1s;
 }
 #undo-button:hover{
     cursor: pointer;
@@ -98,23 +102,28 @@ button:hover{
 #undo-button:active{
     border-width: 3px;
     background-color:rgb(0, 183, 255);
+    transition: 1s;
 }
 
 #toolbar{
     text-align: center;
     position: fixed;
-    z-index: 2;
-    left: 20vw;
-    top:0%;
+    z-index: 3;
+    top:30vh;
+    left: 50vw;
     background-color:var(--p2color);
     color: var(--bg);
-    border: var(--border1) solid ;
+    border-style:solid;
+    border-color:  var(--border1) ;
     width: 300px;
     border-radius: 5px;
+    transition-property: color, background-color,border-color;
+    transition-property: 1s;
 }
 #toolbar-title{
     border: var(--border1) solid ;
     position: relative;
+    transition: 1s;
     
 }
 #tools{
@@ -129,6 +138,7 @@ button:hover{
     color: var(--p2color);
     background-color:var(--border1);
     border: var(--bg) solid;
+    transition: 1s;
 }
 a{
     color: inherit;
@@ -182,10 +192,12 @@ label:hover{
     border: var(--border1) solid ;
     padding-bottom: 20px;
     position: relative;
+    transition: 1s;
 }
 
 input[type="color"]{
     background-color: var(--p2color);
     border:none;
     margin: 5px;
+    transition: 1s;
 }

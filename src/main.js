@@ -291,12 +291,16 @@ toolbar.addEventListener("click",function(event){
     }
 
 })
-let c1=getComputedStyle(document.documentElement).getPropertyValue("--p1color");
 function getColors(){
 let colorInputs=toolbar.querySelectorAll(`input[type="color"]`);
-console.log(colorInputs);
+for(let input of colorInputs){
+    input.value=getComputedStyle(document.documentElement).getPropertyValue("--"+input.id);
+    input.onchange=function changeColor(){
+        document.documentElement.style.setProperty("--"+input.id, input.value);
+    };
 }
-getColors();
+}
+
 
 
 
@@ -417,6 +421,7 @@ async function get() {
     }
 
 async function loadBin(){
+    getColors();
     await get();
     undoText.innerText=parseInt(currentVersion-undoCounter);
     versionText.innerText=currentVersion;
