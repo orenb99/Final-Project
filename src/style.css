@@ -1,4 +1,6 @@
-
+#title{
+    margin: 20px;
+}
 .todo-container> div{
     display: inline;
     margin-right: 10px;
@@ -12,7 +14,16 @@
     display: inline;
 }
 #counter-div{
-    margin-bottom: 20px;
+    margin: 20px;
+}
+#version-div>h3{
+    display: inline;
+}
+#version-div{
+    margin: 20px;
+}
+#version{
+    margin-right: 50px;
 }
 #sort-button{
     margin-left: 20px;

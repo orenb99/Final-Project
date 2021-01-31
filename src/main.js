@@ -10,6 +10,8 @@ const sortButton=document.getElementById("sort-button");
 const deleteButton=document.getElementById("delete-button");
 const editButton=document.getElementById("edit-button");
 const undoButton=document.getElementById("undo-button");
+const versionText=document.getElementById("version");
+const undoText=document.getElementById("undoings");
 
 //function calls and event listeners
 body.onload=loadBin;
@@ -304,7 +306,6 @@ async function put(containers) {
         },
         body: jsonString,
     }
-    console.log(currentVersion);
     const request = new Request(root + binId, init);
     const response = await fetch(request);
 }
@@ -319,7 +320,6 @@ async function get() {
     const body = await response.json();
     let itemArray=body.record["my-todo"];
     currentVersion=body.record["version"];
-    console.log(currentVersion);
     for(let item of itemArray){
         let container=addElements();
         assignValues(container,item.priority,item.date,item.text);
@@ -329,12 +329,17 @@ async function get() {
 
 async function loadBin(){
     await get();
+    undoText.innerText=undoCounter;
+    versionText.innerText=currentVersion;
 }
 async function updateBin(){
     let containers=viewSection.querySelectorAll(".todo-container");
     counterChange();
     await put(containers);
     undoCounter=0;
+    undoText.innerText=undoCounter;
+    versionText.innerText=currentVersion;
+
 }
 let undoCounter=0;
 async function undoBin(){
@@ -347,7 +352,6 @@ async function undoBin(){
     for(let item of containers){
         item.remove();
     }
-    console.log(undoCounter);
     const init = {
         method: "GET"
     }
@@ -355,10 +359,11 @@ async function undoBin(){
     const response = await fetch(request);
     const body = await response.json();
     let itemArray=body.record["my-todo"];
-    console.log(currentVersion);
     for(let item of itemArray){
         let container=addElements();
         assignValues(container,item.priority,item.date,item.text);
     }
     counterChange();
+    undoText.innerText=undoCounter;
+    versionText.innerText=currentVersion;
 }
