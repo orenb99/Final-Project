@@ -1,4 +1,5 @@
 "use strict"
+const body=document.getElementById("body");
 const textInput=document.getElementById("text-input");
 const addButton=document.getElementById("add-button");
 const counter=document.getElementById("counter");
@@ -11,6 +12,7 @@ const editButton=document.getElementById("edit-button");
 const undoButton=document.getElementById("undo-button");
 
 //function calls and event listeners
+body.onload=loadBin;
 addButton.addEventListener("click",addToList);
 sortButton.addEventListener("click",prioritize);
 deleteButton.addEventListener("click",deleteChecked);
@@ -22,7 +24,7 @@ function addToList(){
         let correctDate=convertTimeFormat(new Date());
         let container=addElements();
         assignValues(container,selector.value,correctDate,textInput.value);
-        save();
+        updateBin();
     }
     else if(editButton.innerText==="save"){
         alert("Finish editing your list before adding new tasks!");
@@ -71,13 +73,13 @@ function addElements(){
     incPriorityButton.addEventListener("click",function (){
         if(parseInt(itemPriority.innerText)<5){
             parseInt(itemPriority.innerText++);
-            save();
+            updateBin();
         }
     });
     decPriorityButton.addEventListener("click",function (){
         if(parseInt(itemPriority.innerText)>1){
             parseInt(itemPriority.innerText--);
-            save();
+            updateBin();
         }
     });
     
@@ -134,7 +136,7 @@ function prioritize(){
     for(let item of sortedArr){
             viewSection.append(item);
     }
-    save();
+    updateBin();
 }
 
 function checked(){
@@ -157,7 +159,7 @@ function deleteChecked(){
     while(checkedLines.length!==0){
         viewSection.removeChild(checkedLines[0]);
     }
-    save();
+    updateBin();
 }
 function deleteEmpty(){
     let checkedLines=viewSection.getElementsByClassName("empty");
@@ -165,7 +167,7 @@ function deleteEmpty(){
     while(checkedLines.length!==0){
         viewSection.removeChild(checkedLines[0]);
     }
-    save();
+    updateBin();
 }
 
 let tempContainers=[];
@@ -207,7 +209,7 @@ function edit(){
             }
         }
         deleteEmpty();
-        save();
+        updateBin();
     }
     
 }
@@ -290,7 +292,7 @@ async function put(containers) {
             text : item.querySelector(".todo-text").innerText,
             checkbox : item.querySelector(".checkbox").checked
         });
-        item.remove();
+        //item.remove();
     }
 
     const sendObject = {
@@ -326,12 +328,11 @@ async function get() {
     counterChange();
 }
 
-async function load2(){
+async function loadBin(){
     await get();
 }
-async function update(){
+async function updateBin(){
     let containers=viewSection.querySelectorAll(".todo-container");
+    counterChange();
     await put(containers);
-    await get();
 }
-//update();
