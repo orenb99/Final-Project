@@ -219,18 +219,31 @@ toolbar.addEventListener("mousedown",function(event){
         toolbar.addEventListener("mousemove",dragging);
         toolbar.addEventListener("mouseup",stopped);
         body.addEventListener("mouseleave",stopped);
-        
         function dragging(event){
             let x=event.clientX-toolbar.offsetWidth/2;
             let y=event.clientY-toolbar.querySelector("#toolbar-title").offsetHeight/2;
-            if(x<0)
+            if(x<0){
                 x=0;
-            else if(x+toolbar.offsetWidth>window.innerWidth)
+                toolbar.classList.remove("not-sticking");
+                toolbar.classList.add("stick-left");
+                //stopped();
+            }
+            else if(x+toolbar.offsetWidth>window.innerWidth){
                 x=window.innerWidth-toolbar.offsetWidth;
-            if(y<0)
+                //toolbar.classList.remove("not-sticking");
+                // toolbar.classList.add("stick-right");
+            }
+            else{
+                // toolbar.classList.remove("stick-right");
+                toolbar.classList.remove("stick-left");
+                toolbar.classList.add("not-sticking");
+            }
+            if(y<0){
                 y=0;
-            else if(y+toolbar.offsetHeight>window.innerHeight)
+            }
+            else if(y+toolbar.offsetHeight>window.innerHeight){
                 y=window.innerHeight-toolbar.offsetHeight;
+            }
             toolbar.style.left=x+"px";
             toolbar.style.top=y+"px";
         }

@@ -77,25 +77,53 @@
 }
 
 #toolbar{
-    display: inline-block;
     text-align: center;
     position: fixed;
-    width: 400px;
     z-index: 2;
     left: 40vw;
     top: 0%;
-    background-color: rgba(0, 128, 0, 0.521);
 }
 #toolbar-title{
     border: solid;
+    position: relative;
+    
 }
 #tools{
     border: solid;
     padding-bottom: 20px;
+    position: relative;
 }
 
 .toolbar-button{
     margin: 5px;
 }
-#toolbar-title>h1{
+
+.not-sticking{
+    width: 400px;
+    background-color: rgba(0, 128, 0, 0.521);
+}
+.stick-left{
+    width: 200px;
+    height: 100vh;
+    background-color: red;
+    float: left;
+    display: flex;
+
+}
+/* .stick-right{
+    background-color: blue;
+    height: 100vh;
+    float: right;
+    display: block;
+
+} */
+
+.stick-left> #toolbar-title{
+    width:50%;
+    height: 100vh;
+}
+.stick-left> #tools{
+    width:50%;
+    height: 100vh;
+
 }
