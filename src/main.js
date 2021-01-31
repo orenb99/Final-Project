@@ -14,7 +14,6 @@ const versionText=document.getElementById("version");
 const undoText=document.getElementById("undoings");
 const toolbar=document.getElementById("toolbar");
 const checkAllButton=document.getElementById("check-all-button");
-
 //function calls and event listeners
 body.onload=loadBin;
 addButton.addEventListener("click",addToList);
@@ -281,10 +280,23 @@ toolbar.addEventListener("mousedown",function(event){
         
 })
 toolbar.addEventListener("click",function(event){
+    let target=event.target;
+    if(target.id==="colors-label"){
+        toolbar.querySelector("#colors").hidden=false;
+        toolbar.querySelector("#tools").hidden=true;
+    }
+    else if(target.id==="tools-label"){
+        toolbar.querySelector("#tools").hidden=false;
+        toolbar.querySelector("#colors").hidden=true;
+    }
 
 })
-
-
+let c1=getComputedStyle(document.documentElement).getPropertyValue("--p1color");
+function getColors(){
+let colorInputs=toolbar.querySelectorAll(`input[type="color"]`);
+console.log(colorInputs);
+}
+getColors();
 
 
 

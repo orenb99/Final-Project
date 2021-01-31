@@ -121,6 +121,7 @@ button:hover{
     border: var(--border1) solid ;
     padding-bottom: 20px;
     position: relative;
+    transition: 1s;
 }
 
 .toolbar-button{
@@ -169,7 +170,7 @@ a{
     color: var(--p5color);
     border-color: var(--p5color) ;
 }
-label{
+#toolbar-title>label{
     margin: 5px 35px 5px 35px;
 }
 label:hover{
@@ -181,4 +182,10 @@ label:hover{
     border: var(--border1) solid ;
     padding-bottom: 20px;
     position: relative;
+}
+
+input[type="color"]{
+    background-color: var(--p2color);
+    border:none;
+    margin: 5px;
 }
