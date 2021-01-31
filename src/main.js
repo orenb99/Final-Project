@@ -12,6 +12,7 @@ const editButton=document.getElementById("edit-button");
 const undoButton=document.getElementById("undo-button");
 const versionText=document.getElementById("version");
 const undoText=document.getElementById("undoings");
+const toolbar=document.getElementById("toolbar");
 
 //function calls and event listeners
 body.onload=loadBin;
@@ -210,6 +211,35 @@ function edit(){
     }
     
 }
+//toolbar
+toolbar.addEventListener("click",function(event){
+    let target=event.target;
+    if(target.id==="toolbar-title"||target.tagName==="H1"){
+        let x=event.clientX-toolbar.offsetWidth/2;
+        let y=event.clientY-toolbar.querySelector("#toolbar-title").offsetHeight/2;
+        if(x<0)
+            x=0;
+        else if(x+toolbar.offsetWidth>body.offsetWidth)
+            x=event.clientX-toolbar.offsetWidth
+        
+        if(y<0)
+            y=0;
+        if(y+toolbar.offsetHeight>window.innerHeight)
+            y=event.clientY-toolbar.offsetHeight
+        
+        toolbar.style.left=x+"px";
+        toolbar.style.top=y+"px";
+        console.log(x+","+window.innerWidth);
+    }
+        
+})
+
+
+
+
+
+
+
 
 //JSON local storage (not used)
 function save(){

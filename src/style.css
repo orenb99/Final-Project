@@ -1,3 +1,5 @@
+#body{
+}
 #title{
     margin: 20px;
 }
@@ -25,9 +27,6 @@
 #version{
     margin-right: 50px;
 }
-#sort-button{
-    margin-left: 20px;
-}
 .checked{
     color:red;
     text-decoration-line: line-through;
@@ -50,11 +49,10 @@
 
 #view-section{
     text-align: center;
-    width: 48vw;
+    width: 98vw;
     height: 100vh;
     padding-top: 30px;
     margin-top: 30px;
-    float: left;
     border: solid red;
     background-color: rgb(255,0,0,0.3);
     
@@ -83,13 +81,22 @@
     position: fixed;
     width: 400px;
     z-index: 1;
-    left: 50vw;
+    left: 40vw;
+    top: 0%;
+    background-color: rgba(0, 128, 0, 0.521);
+    transition: 1s;
 }
 #toolbar-title{
     border: solid;
 }
 #tools{
     border: solid;
-    padding: 20px;
+    padding-bottom: 20px;
 }
-    
+
+.toolbar-button{
+    margin: 5px;
+}
+#toolbar-title>h1{
+    background-color: red;
+}
