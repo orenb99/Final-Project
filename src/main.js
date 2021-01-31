@@ -79,14 +79,12 @@ function addElements(){
         if(parseInt(itemPriority.innerText)<5){
             parseInt(itemPriority.innerText++);
             priorityClass()
-            updateBin();
         }
     });
     decPriorityButton.addEventListener("click",function (){
         if(parseInt(itemPriority.innerText)>1){
             parseInt(itemPriority.innerText--);
             priorityClass()
-            updateBin();
         }
     });
     
@@ -142,7 +140,6 @@ function prioritize(){
     for(let item of sortedArr){
             viewSection.append(item);
     }
-    updateBin();
 }
 function priorityClass(){
     let itemsList=document.getElementsByClassName("todo-container");
@@ -251,7 +248,7 @@ function edit(){
 toolbar.addEventListener("mousedown",function(event){
     event.preventDefault();
     let target=event.target;
-    if(target.id==="toolbar-title"||target.tagName==="H1"){
+    if(target.id==="toolbar-title"||target.tagName==="H1"||target.id==="tools"){
         toolbar.addEventListener("mousemove",dragging);
         toolbar.addEventListener("mouseup",stopped);
         body.addEventListener("mouseleave",stopped);
@@ -283,7 +280,9 @@ toolbar.addEventListener("mousedown",function(event){
     }
         
 })
+toolbar.addEventListener("click",function(event){
 
+})
 
 
 
