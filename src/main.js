@@ -282,7 +282,7 @@ function undo(){
 //JSON.bin
 const root = "https://api.jsonbin.io/v3/b/";
 const binId = "6015dc936426b448ee0ed2bb";
-
+let currentVersion;
 async function put(containers) {
     let itemArray=[];
     for(let item of containers){
@@ -293,8 +293,9 @@ async function put(containers) {
             checkbox : item.querySelector(".checkbox").checked
         });
     }
+    currentVersion++;
     const sendObject = {
-        "my-todo":itemArray
+        "my-todo":itemArray, "version":currentVersion
     };
     const jsonString = JSON.stringify(sendObject);
     const init = {
@@ -304,19 +305,22 @@ async function put(containers) {
         },
         body: jsonString,
     }
+    console.log(currentVersion);
     const request = new Request(root + binId, init);
     const response = await fetch(request);
 }
 
 
-async function get(version="latest") {
+async function get() {
     const init = {
         method: "GET"
     }
-    const request = new Request(root + binId + "/"+version, init);
+    const request = new Request(root + binId + "/latest", init);
     const response = await fetch(request);
     const body = await response.json();
     let itemArray=body.record["my-todo"];
+    currentVersion=body.record["version"];
+    console.log(currentVersion);
     for(let item of itemArray){
         let container=addElements();
         assignValues(container,item.priority,item.date,item.text);
@@ -333,10 +337,9 @@ async function updateBin(){
     await put(containers);
 }
 async function undoBin(){
-    let version=100;
     let containers=viewSection.querySelectorAll(".todo-container");
     for(let item of containers){
         item.remove();
     }
-    await get(version);
+    //await get(10);
 }
