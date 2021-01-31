@@ -77,14 +77,14 @@
 }
 
 #toolbar{
+    display: inline-block;
     text-align: center;
     position: fixed;
     width: 400px;
-    z-index: 1;
+    z-index: 2;
     left: 40vw;
     top: 0%;
     background-color: rgba(0, 128, 0, 0.521);
-    transition: 1s;
 }
 #toolbar-title{
     border: solid;
@@ -98,5 +98,4 @@
     margin: 5px;
 }
 #toolbar-title>h1{
-    background-color: red;
 }
