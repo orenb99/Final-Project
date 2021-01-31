@@ -17,10 +17,10 @@ addButton.addEventListener("click",addToList);
 sortButton.addEventListener("click",prioritize);
 deleteButton.addEventListener("click",deleteChecked);
 editButton.addEventListener("click",edit);
-undoButton.addEventListener("click",undo);
+undoButton.addEventListener("click",undoBin);
 function addToList(){
     if(textInput.value!==""&&editButton.innerText==="edit mode"){
-        savePrevious();
+        ////savePrevious();
         let correctDate=convertTimeFormat(new Date());
         let container=addElements();
         assignValues(container,selector.value,correctDate,textInput.value);
@@ -118,7 +118,7 @@ function counterChange(){
 
 
 function prioritize(){
-    savePrevious();
+    ////savePrevious();
     if(editButton.innerText==="save"){
         alert("Stop editing to sort");
         return;
@@ -153,7 +153,7 @@ function checked(){
 }
 
 function deleteChecked(){
-    savePrevious();
+    ////savePrevious();
     let checkedLines=viewSection.getElementsByClassName("checked");
     counterChange();
     while(checkedLines.length!==0){
@@ -178,7 +178,7 @@ function edit(){
     }
     let containers=viewSection.getElementsByClassName("todo-container");
     if(editButton.innerText==="edit mode"){
-        savePrevious();
+        //savePrevious();
         tempContainers=[];
         editButton.innerText="save";
         for(let i=0;i<containers.length;i++){
@@ -280,8 +280,8 @@ function undo(){
 }
 
 //JSON.bin
-const ROOT = "https://api.jsonbin.io/v3/b/";
-const BIN_ID = "6015dc936426b448ee0ed2bb";
+const root = "https://api.jsonbin.io/v3/b/";
+const binId = "6015dc936426b448ee0ed2bb";
 
 async function put(containers) {
     let itemArray=[];
@@ -292,14 +292,11 @@ async function put(containers) {
             text : item.querySelector(".todo-text").innerText,
             checkbox : item.querySelector(".checkbox").checked
         });
-        //item.remove();
     }
-
     const sendObject = {
         "my-todo":itemArray
     };
     const jsonString = JSON.stringify(sendObject);
-    console.log(sendObject);
     const init = {
         method: "PUT",
         headers: {
@@ -307,17 +304,16 @@ async function put(containers) {
         },
         body: jsonString,
     }
-    const request = new Request(ROOT + BIN_ID, init);
+    const request = new Request(root + binId, init);
     const response = await fetch(request);
 }
 
 
-async function get() {
-    
+async function get(version="latest") {
     const init = {
         method: "GET"
     }
-    const request = new Request(ROOT + BIN_ID + "/latest", init);
+    const request = new Request(root + binId + "/"+version, init);
     const response = await fetch(request);
     const body = await response.json();
     let itemArray=body.record["my-todo"];
@@ -326,7 +322,7 @@ async function get() {
         assignValues(container,item.priority,item.date,item.text);
     }
     counterChange();
-}
+    }
 
 async function loadBin(){
     await get();
@@ -335,4 +331,12 @@ async function updateBin(){
     let containers=viewSection.querySelectorAll(".todo-container");
     counterChange();
     await put(containers);
+}
+async function undoBin(){
+    let version=100;
+    let containers=viewSection.querySelectorAll(".todo-container");
+    for(let item of containers){
+        item.remove();
+    }
+    await get(version);
 }

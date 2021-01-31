@@ -66,7 +66,7 @@ describe(projectName, () => {
     browser = await puppeteer.launch({
       headless: false, // Uncomment me to see tests running in browser
       args: ["--disable-web-security"],
-      slowMo: 50, // Uncomment and change me to slow down tests speed in browser.
+      slowMo: 200, // Uncomment and change me to slow down tests speed in browser.
     });
     page = await browser.newPage();
     useNock(page, ["https://api.jsonbin.io/v3"]);
