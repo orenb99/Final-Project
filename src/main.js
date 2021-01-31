@@ -42,6 +42,7 @@ function assignValues(container,priority,date,text){
     container.querySelector(".todo-priority").innerText=priority;
     container.querySelector(".todo-text").innerText=text;
     container.querySelector(".todo-created-at").innerText=date;
+    priorityClass();
     textInput.value="";
 }
 
@@ -77,12 +78,14 @@ function addElements(){
     incPriorityButton.addEventListener("click",function (){
         if(parseInt(itemPriority.innerText)<5){
             parseInt(itemPriority.innerText++);
+            priorityClass()
             updateBin();
         }
     });
     decPriorityButton.addEventListener("click",function (){
         if(parseInt(itemPriority.innerText)>1){
             parseInt(itemPriority.innerText--);
+            priorityClass()
             updateBin();
         }
     });
@@ -141,7 +144,20 @@ function prioritize(){
     }
     updateBin();
 }
+function priorityClass(){
+    let itemsList=document.getElementsByClassName("todo-container");
+    for(let item of itemsList){
+        item.classList.remove("p1");
+        item.classList.remove("p2")
+        item.classList.remove("p3")
+        item.classList.remove("p4")
+        item.classList.remove("p5")
+    }
+    for(let item of itemsList){
+        item.classList.add("p"+item.querySelector(".todo-priority").innerText)
+    }
 
+}
 function checked(){
     let checkboxes=viewSection.querySelectorAll(".checkbox");
     for(let box of checkboxes){
