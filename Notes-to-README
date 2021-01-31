@@ -5,13 +5,12 @@
 -adding priority inc and dec buttons- Done!
 -undo- Done!
 -localStorage- Done!(nothing to do with it now)
-
--drag and drop toolbar- 
+-drag and drop toolbar- done!
 -transform to JSON bin- Done! (need to use both localStorage and JSON.bin depends on internet connection)
 
 -Styling- 
--change color according to the priority (an interactive way with the client in the toolbar)- 
--get most of the buttons to a fixed toolbar
+-change color according to the priority- 
+-get most of the buttons to a fixed toolbar-Done!
 -finish irritation-
 -explain about every function-
 

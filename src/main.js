@@ -13,6 +13,7 @@ const undoButton=document.getElementById("undo-button");
 const versionText=document.getElementById("version");
 const undoText=document.getElementById("undoings");
 const toolbar=document.getElementById("toolbar");
+const checkAllButton=document.getElementById("check-all-button");
 
 //function calls and event listeners
 body.onload=loadBin;
@@ -21,6 +22,7 @@ sortButton.addEventListener("click",prioritize);
 deleteButton.addEventListener("click",deleteChecked);
 editButton.addEventListener("click",edit);
 undoButton.addEventListener("click",undoBin);
+checkAllButton.onclick=checkAll;
 function addToList(){
     if(textInput.value!==""&&editButton.innerText==="edit mode"){
         let correctDate=convertTimeFormat(new Date());
@@ -168,6 +170,16 @@ function deleteEmpty(){
         viewSection.removeChild(checkedLines[0]);
     }
 }
+function checkAll(){
+if(checkAllButton.innerText==="Check all"){
+    checkAllButton.innerText="Uncheck All";
+}
+else{
+    checkAllButton.innerText="Check All";
+}
+
+}
+
 
 let tempContainers=[];
 function edit(){
@@ -224,19 +236,11 @@ toolbar.addEventListener("mousedown",function(event){
             let y=event.clientY-toolbar.querySelector("#toolbar-title").offsetHeight/2;
             if(x<0){
                 x=0;
-                toolbar.classList.remove("not-sticking");
-                toolbar.classList.add("stick-left");
-                //stopped();
             }
             else if(x+toolbar.offsetWidth>window.innerWidth){
                 x=window.innerWidth-toolbar.offsetWidth;
-                //toolbar.classList.remove("not-sticking");
-                // toolbar.classList.add("stick-right");
             }
             else{
-                // toolbar.classList.remove("stick-right");
-                toolbar.classList.remove("stick-left");
-                toolbar.classList.add("not-sticking");
             }
             if(y<0){
                 y=0;
@@ -330,7 +334,7 @@ function undo(){
 
 //JSON.bin
 const root = "https://api.jsonbin.io/v3/b/";
-const binId = "6015dc936426b448ee0ed2bb";
+const binId = "601696a5abdf9c55679555d5";
 let currentVersion;
 async function put(containers) {
     let itemArray=[];
@@ -350,7 +354,7 @@ async function put(containers) {
     const init = {
         method: "PUT",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         },
         body: jsonString,
     }
