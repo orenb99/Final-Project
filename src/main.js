@@ -167,7 +167,6 @@ function deleteEmpty(){
     while(checkedLines.length!==0){
         viewSection.removeChild(checkedLines[0]);
     }
-    updateBin();
 }
 
 let tempContainers=[];
@@ -325,7 +324,7 @@ async function get() {
         let container=addElements();
         assignValues(container,item.priority,item.date,item.text);
     }
-    counterChange();
+    undoCounter=0;
     }
 
 async function loadBin(){
@@ -335,11 +334,31 @@ async function updateBin(){
     let containers=viewSection.querySelectorAll(".todo-container");
     counterChange();
     await put(containers);
+    undoCounter=0;
 }
+let undoCounter=0;
 async function undoBin(){
+    if(editButton.innerText==="save"){
+        alert("Stop Editing to undo");
+        return;
+    }
     let containers=viewSection.querySelectorAll(".todo-container");
+    undoCounter++;
     for(let item of containers){
         item.remove();
     }
-    //await get(10);
+    console.log(undoCounter);
+    const init = {
+        method: "GET"
+    }
+    const request = new Request(root + binId + "/"+(currentVersion-undoCounter), init);
+    const response = await fetch(request);
+    const body = await response.json();
+    let itemArray=body.record["my-todo"];
+    console.log(currentVersion);
+    for(let item of itemArray){
+        let container=addElements();
+        assignValues(container,item.priority,item.date,item.text);
+    }
+    counterChange();
 }
