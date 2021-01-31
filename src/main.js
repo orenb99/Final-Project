@@ -11,7 +11,6 @@ const editButton=document.getElementById("edit-button");
 const undoButton=document.getElementById("undo-button");
 
 //function calls and event listeners
-load();
 addButton.addEventListener("click",addToList);
 sortButton.addEventListener("click",prioritize);
 deleteButton.addEventListener("click",deleteChecked);
@@ -85,7 +84,7 @@ function addElements(){
 
     viewSection.append(container);
     textInput.focus();
-    counterChange(1);
+    counterChange();
 
     return container;
 
@@ -105,8 +104,8 @@ function convertTimeFormat(date){
     return dateString;
 }
 
-function counterChange(num){
-    counter.innerText=""+(parseInt(counter.innerText)+num);
+function counterChange(){
+    counter.innerText=""+(viewSection.querySelectorAll(".todo-container").length);
     if(counter.innerText==="1")
         counter.nextSibling.nextSibling.innerText="Thing to do";
     else
@@ -154,7 +153,7 @@ function checked(){
 function deleteChecked(){
     savePrevious();
     let checkedLines=viewSection.getElementsByClassName("checked");
-    counterChange(-checkedLines.length);
+    counterChange();
     while(checkedLines.length!==0){
         viewSection.removeChild(checkedLines[0]);
     }
@@ -162,7 +161,7 @@ function deleteChecked(){
 }
 function deleteEmpty(){
     let checkedLines=viewSection.getElementsByClassName("empty");
-    counterChange(-checkedLines.length);
+    counterChange();
     while(checkedLines.length!==0){
         viewSection.removeChild(checkedLines[0]);
     }
@@ -267,7 +266,7 @@ function undo(){
     
     while(containers.length!==0){
         viewSection.removeChild(containers[0]);
-        counterChange(-1);
+        counterChange();
     }
     for(let item of itemArray){
         let container=addElements();
@@ -280,7 +279,36 @@ function undo(){
 
 //JSON.bin
 const ROOT = "https://api.jsonbin.io/v3/b/";
-const BIN_ID = "6015c46a014e36492231f49b";
+const BIN_ID = "6015dc936426b448ee0ed2bb";
+
+async function put(containers) {
+    let itemArray=[];
+    for(let item of containers){
+        itemArray.push({
+            priority : item.querySelector(".todo-priority").innerText,
+            date : item.querySelector(".todo-created-at").innerText,
+            text : item.querySelector(".todo-text").innerText,
+            checkbox : item.querySelector(".checkbox").checked
+        });
+        item.remove();
+    }
+
+    const sendObject = {
+        "my-todo":itemArray
+    };
+    const jsonString = JSON.stringify(sendObject);
+    console.log(sendObject);
+    const init = {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: jsonString,
+    }
+    const request = new Request(ROOT + BIN_ID, init);
+    const response = await fetch(request);
+}
+
 
 async function get() {
     
@@ -290,10 +318,20 @@ async function get() {
     const request = new Request(ROOT + BIN_ID + "/latest", init);
     const response = await fetch(request);
     const body = await response.json();
-    console.log(response);
-    console.log(body);
-    console.log(body.record["my-todo"][0].text);
-    console.log(body.record["my-todo"][1].text);
+    let itemArray=body.record["my-todo"];
+    for(let item of itemArray){
+        let container=addElements();
+        assignValues(container,item.priority,item.date,item.text);
+    }
+    counterChange();
 }
 
-get();
+async function load2(){
+    await get();
+}
+async function update(){
+    let containers=viewSection.querySelectorAll(".todo-container");
+    await put(containers);
+    await get();
+}
+//update();
