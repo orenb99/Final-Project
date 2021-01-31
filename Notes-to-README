@@ -1,10 +1,10 @@
 -all minimal conditions- Done!
 -getting the test's working- ASK SOMEONE!!! tests are working depends on the slowmo!!!
 -adding checkboxes to the container with delete option later- Done!
--undo- Done! (after the JSON.bin change the function to much this)
--localStorage- Done!
 -edit mode - Done!
 -adding priority inc and dec buttons- Done!
+-undo- Done!
+-localStorage- Done!(nothing to do with it now)
 
 -drag and drop toolbar- 
 -transform to JSON bin- Done! (need to use both localStorage and JSON.bin depends on internet connection)
