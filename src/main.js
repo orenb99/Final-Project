@@ -170,12 +170,20 @@ function deleteEmpty(){
         viewSection.removeChild(checkedLines[0]);
     }
 }
+
 function checkAll(){
-if(checkAllButton.innerText==="Check all"){
-    checkAllButton.innerText="Uncheck All";
-}
-else{
-    checkAllButton.innerText="Check All";
+    let checkboxes=viewSection.querySelectorAll(".checkbox")
+    if(checkAllButton.innerText==="Check all"){
+        checkAllButton.innerText="Uncheck all";
+        for(let box of checkboxes)
+            box.checked=true;
+        checked();
+    }
+    else{
+        checkAllButton.innerText="Check all";
+        for(let box of checkboxes)
+            box.checked=false;
+        checked();
 }
 
 }
