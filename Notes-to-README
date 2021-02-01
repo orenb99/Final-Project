@@ -72,6 +72,24 @@ at his will using functions i will describe later.
 
 -the local storage section is commented because there was no need to use it after the data transfer to JSON.bin.
 
+JSON-bin
+
+-put()
+    This function gets a list of containers and converting it to an array of items with the priorities of test,date,property and checkbox then sending that array inside
+    an object called "my-todo" and a number which is the current version of the bin inside an object called "version" to the bin.
+
+-get()
+    This function receives the info from the bin assigns the "my-todo" object into an array and the version into the currentVersion variable. It proceeds to 
+    call the functions createElements and assignValues to add the items from the array to the viewSection, and resets the undo counter which we will get to later.
+
+-loadBin()
+    This function does all the things that are needed when launching the window like getting the colors, getting the info from the bin and translating it to
+    elements and assigning the undo counter and currentVersion.
+
+-undoBin()
+    This function allows the client to undo changes by going back to previous versions of the bin without loosing progress of their list.
+    First, it resets all the view-section, and then it gets the information from the previous(or earlier if clicked more times) version of the same bin.
+    It also changes the undo counter the displays it on the screen so the client will know where he is at all times.
 
 
 
