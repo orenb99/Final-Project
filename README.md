@@ -82,7 +82,7 @@ Note that each commit to `main` branch will trigger a github [action](https://do
 
 - Add a button with id `sort-button`. Clicking this element should resort the todo list by their todos priority (DESC)
 
-  ![alt text](./src/imgs/sample-page.png)
+  ![alt text](./readme-files/todo.gif)
 
 - **Make your todo-list persistent!**
 
