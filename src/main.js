@@ -331,74 +331,70 @@ function show(div){
     }
 }
 
-
-
-
-
-//JSON local storage (not used)
-function save(){
-    localStorage.removeItem("my-todo");
-    let initialArray=viewSection.getElementsByClassName("todo-container");
-    let finalArray=[];
-    for(let item of initialArray){
-        finalArray.push({
-            priority : item.querySelector(".todo-priority").innerText,
-            date : item.querySelector(".todo-created-at").innerText,
-            text : item.querySelector(".todo-text").innerText,
-            checkbox : item.querySelector(".checkbox").checked
-        });
-    }
+// //JSON local storage (not used)
+// function save(){
+//     localStorage.removeItem("my-todo");
+//     let initialArray=viewSection.getElementsByClassName("todo-container");
+//     let finalArray=[];
+//     for(let item of initialArray){
+//         finalArray.push({
+//             priority : item.querySelector(".todo-priority").innerText,
+//             date : item.querySelector(".todo-created-at").innerText,
+//             text : item.querySelector(".todo-text").innerText,
+//             checkbox : item.querySelector(".checkbox").checked
+//         });
+//     }
     
-    let myJSON=JSON.stringify(finalArray);
-    localStorage.setItem("my-todo",myJSON);
-}
+//     let myJSON=JSON.stringify(finalArray);
+//     localStorage.setItem("my-todo",myJSON);
+// }
 
-function load(){
-    let JSONText=localStorage.getItem("my-todo");
-        let itemArray= JSON.parse(JSONText);
-        if(!itemArray)
-            return;
-        for(let item of itemArray){
-            let container=addElements();
-            assignValues(container,item.priority,item.date,item.text)
-        }
-    }
+// function load(){
+//     let JSONText=localStorage.getItem("my-todo");
+//         let itemArray= JSON.parse(JSONText);
+//         if(!itemArray)
+//             return;
+//         for(let item of itemArray){
+//             let container=addElements();
+//             assignValues(container,item.priority,item.date,item.text)
+//         }
+//     }
 
 
-function savePrevious(){
-    localStorage.removeItem("undo");
-    let initialArray=viewSection.getElementsByClassName("todo-container");
-    let finalArray=[];
-    for(let item of initialArray){
-        finalArray.push({
-            priority : item.querySelector(".todo-priority").innerText,
-            date : item.querySelector(".todo-created-at").innerText,
-            text : item.querySelector(".todo-text").innerText,
-            checkbox : item.querySelector(".checkbox").checked
-        });
-    }
-    let myJSON=JSON.stringify(finalArray);
-    localStorage.setItem("undo",myJSON);
-}
-function undo(){
-    let JSONText=localStorage.getItem("undo");
-    let itemArray= JSON.parse(JSONText);
-    if(!itemArray)
-        return;
-    let containers=viewSection.getElementsByClassName("todo-container");
+// function savePrevious(){
+//     localStorage.removeItem("undo");
+//     let initialArray=viewSection.getElementsByClassName("todo-container");
+//     let finalArray=[];
+//     for(let item of initialArray){
+//         finalArray.push({
+//             priority : item.querySelector(".todo-priority").innerText,
+//             date : item.querySelector(".todo-created-at").innerText,
+//             text : item.querySelector(".todo-text").innerText,
+//             checkbox : item.querySelector(".checkbox").checked
+//         });
+//     }
+//     let myJSON=JSON.stringify(finalArray);
+//     localStorage.setItem("undo",myJSON);
+// }
+// function undo(){
+//     let JSONText=localStorage.getItem("undo");
+//     let itemArray= JSON.parse(JSONText);
+//     if(!itemArray)
+//         return;
+//     let containers=viewSection.getElementsByClassName("todo-container");
     
-    while(containers.length!==0){
-        viewSection.removeChild(containers[0]);
-        counterChange();
-    }
-    for(let item of itemArray){
-        let container=addElements();
-        assignValues(container,item.priority,item.date,item.text);
-    }
-    localStorage.removeItem("undo");
-    editButton.innerText="edit mode";
-    save();
-}
+//     while(containers.length!==0){
+//         viewSection.removeChild(containers[0]);
+//         counterChange();
+//     }
+//     for(let item of itemArray){
+//         let container=addElements();
+//         assignValues(container,item.priority,item.date,item.text);
+//     }
+//     localStorage.removeItem("undo");
+//     editButton.innerText="edit mode";
+//     save();
+// }
 
 //JSON.bin
 const root = "https://api.jsonbin.io/v3/b/";

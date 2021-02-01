@@ -1,17 +1,46 @@
--all minimal conditions- Done!
--getting the test's working- DONE!
--adding checkboxes to the container with delete option later- Done!
--edit mode - Done!
--adding priority inc and dec buttons- Done!
--undo- Done!
--localStorage- Done!(nothing to do with it now)
--drag and drop toolbar- done!
--transform to JSON bin- Done! (need to use both localStorage and JSON.bin depends on internet connection)
 
--Styling- 
--change color according to the priority- Done!
--get most of the buttons to a fixed toolbar-Done!
--YOU'VE GOT TO PIMP MY RIDDEEEE-DONE!
--transitions and animations-(if theres time)
--finish irritation-
--explain about every function-
+GitHub-pages Link:
+file:///C:/Users/USER/Documents/GitHub/pre-course-2021-final-boilerplate/src/index.html
+
+My todo-list final project
+
+In this readme i will explain about my project.
+
+first i created the html file where i added all the basics and created the main elements i will work with in my JS code.
+After all the basics were finished i moved on to the JS code where i began work on the actual project.
+
+JS functions:
+-addElements()
+    This function creates all the elements that need to be inside a todo container, adds them a class and later on appends them
+    to the container. inside this function i created two event listeners that change the priority of the current todo-container and
+    assigned them to the increase and decrease priority buttons inside the container. After the container is done, he is being appended to
+    the view section and increases the counter.
+
+-assignValues(container,priority,date,text)
+    This function gets a container and all the necessary values that needs to be inside it and assigns them into it's elements.
+    After the container is complete the function resets the text-input and adds class according to the priority via a function i will acknowledge later.
+
+-addToList(){
+    This function uses both of the function above to add a todo-container to the view-section and into the JSON.bin and is being assigned 
+    to the add-button as an eventListener.
+
+-convertTimeFormat(date)
+    This function gets a date as an argument to slice and modify it to an SQL format.
+
+-counterChange()
+    This function updates the counter to match the amount of todo-containers inside the view section and changing its following text.
+
+-prioritize()
+    This function sorts the view section by priority in descending order and is assigned to the sort button as an eventListener.
+
+-priorityClass()
+    This function sets a class for the container depending on its priority.
+
+-checked()
+    This function adds a "checked" style to all the containers with a checked checkbox
+
+-deleteChecked()
+    This function deletes all the containers with a checked checkbox and is assigned to the delete button
+
+
+
