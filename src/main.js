@@ -282,12 +282,13 @@ toolbar.addEventListener("mousedown",function(event){
 toolbar.addEventListener("click",function(event){
     let target=event.target;
     if(target.id==="colors-label"){
-        toolbar.querySelector("#colors").hidden=false;
-        toolbar.querySelector("#tools").hidden=true;
+        // toolbar.querySelector("#tools").style.height="0";
+        // toolbar.querySelector("#colors").style.height="110px";
+        hide(toolbar.querySelector("#colors"));
     }
     else if(target.id==="tools-label"){
-        toolbar.querySelector("#tools").hidden=false;
-        toolbar.querySelector("#colors").hidden=true;
+        toolbar.querySelector("#tools").style.height="100px";
+        toolbar.querySelector("#colors").style.height="0";
     }
 
 })
@@ -300,7 +301,12 @@ for(let input of colorInputs){
     };
 }
 }
-
+function hide(div){
+div.style.height="0";
+div.style.visibility="hidden";
+let children=div.children();
+console.log(children);
+}
 
 
 

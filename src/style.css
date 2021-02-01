@@ -128,9 +128,9 @@ button:hover{
 }
 #tools{
     border: var(--border1) solid ;
-    padding-bottom: 20px;
     position: relative;
     transition: 1s;
+    height: 100px;
 }
 
 .toolbar-button{
@@ -190,9 +190,9 @@ label:hover{
 }
 #colors{
     border: var(--border1) solid ;
-    padding-bottom: 20px;
     position: relative;
     transition: 1s;
+    height: 110px;
 }
 
 input[type="color"]{
