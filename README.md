@@ -1,130 +1,100 @@
-# ![Scale-Up Velocity](./readme-files/logo-main.png) Pre Course Project - Todo List 📋
 
-This project will include most of the topics we have learnt so far.
-This repository includes a basic skeleton template with automated tests, use it for your submissions.
+GitHub-pages Link:
+https://orenb99.github.io/pre-course-2021-final-boilerplate/src/index.html
 
-In this project you will create a Todo List Web Application, in which the user can store prioritized _todo tasks_ and view/sort that list.
+Link to the site that helped with the drag&drop option.
+https://javascript.info/mouse-drag-and-drop
 
-Here is a preview sample of the desired functionality (without styling):
 
-![Add todo task](./readme-files/basic-todo.gif)
+![alt text](./src/imgs/page-sample.png)
 
-## Instructions
+My todo-list final project
 
-- Fork this repository into your account. Make sure to select the **public** option ⑂
-- Clone your new repository to your computer 🖥
-- Install the project dependencies by running `npm install` from the vscode terminal `ctrl + j` (make sure you are in the correct directory) 📂
-<!-- - [Create new branch](https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/managing-branches) -->
-- Make changes to the code to meet the project requirements 📝
-- [Commit Early, Push Often](https://www.worklytics.co/commit-early-push-often/) - your work will be evaluated by your push history 📖
-- Good Luck! 🤘
+In this readme i will explain about my project.
 
-## Running tests
+first i created the html file where i added all the basics and created the main elements i will work with in my JS code.
+After all the basics were finished i moved on to the JS code where i began work on the actual project.
 
-We have created automated tests for your convenience, use it to check your progression.
+JS functions:
+-addElements()
+    This function creates all the elements that need to be inside a todo container, adds them a class and later on appends them
+    to the container. inside this function i created two event listeners that change the priority of the current todo-container and
+    assigned them to the increase and decrease priority buttons inside the container. After the container is done, he is being appended to
+    the view section and increases the counter.
 
-Note that the automated tests rely on your code having the exact class names, Ids and objects structures as specified below.
+-assignValues(container,priority,date,text)
+    This function gets a container and all the necessary values that needs to be inside it and assigns them into it's elements.
+    After the container is complete the function resets the text-input and adds class according to the priority via a function i will acknowledge later.
 
-To run the tests locally simply run `npm run test` in the terminal
+-addToList(){
+    This function uses both of the function above to add a todo-container to the view-section and into the JSON.bin and is being assigned 
+    to the add-button as an eventListener.
 
-Note that each commit to `main` branch will trigger a github [action](https://docs.github.com/en/actions). You can easily see the action tests result on each commit:
+-convertTimeFormat(date)
+    This function gets a date as an argument to slice and modify it to an SQL format.
 
-![Commits test](./readme-files/commit-tests.png)
+-counterChange()
+    This function updates the counter to match the amount of todo-containers inside the view section and changing its following text.
 
-## Guidelines
+-prioritize()
+    This function sorts the view section by priority in descending order and is assigned to the sort button as an eventListener.
 
-- The Todo list should have two sections: _Control_ section and _View_ section
-- The _Control_ section is where the user adds his todo task and priority, and should have three elements:
-  - [\<input\>](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) with id `text-input`.
-  - [\<select\>](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select) with id `priority-selector` (options will be: 1-5).
-  - [\<button\>](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button) with id `add-button`.
-- The _View_ section is where we display the list of added todo tasks and data. The list should start empty and each added todo should be inserted to the end of the list.
-- After the user clicks on the 'add' button, the todo input field should be "reset"
-- Every todo item should have a "container" div with class `todo-container` that will contain 3 sub-elements:
+-priorityClass()
+    This function sets a class for the container depending on its priority.
 
-  - An element with a class `todo-text` with the text of the todo task
-  - An element with a class `todo-created-at` that will hold the creation time of the task in a [SQL format](https://www.w3schools.com/sql/sql_dates.asp#:~:text=SQL%20Date%20Data%20Types&text=DATE%20%2D%20format%20YYYY%2DMM%2D,YEAR%20%2D%20format%20YYYY%20or%20YY)
-  - An element for showing the numeric priority value of the task, with a class `todo-priority`
+-checked()
+    This function adds a "checked" style to all the containers with a checked checkbox
 
-  Good way 👍🏿:
+-deleteClass(className)
+    This function deletes all the containers with a certain class name or the checked class if no class name is given. this function is assigned to
+    the delete button as an eventListener
 
-  ```
-    <div class="todo-container">
-      <div class="todo-priority">
-        1
-      </div>
-      <div class="todo-created-at">
-        2020-06-18 11:51:12
-      </div>
-      <div class="todo-text">
-        the todo text
-      </div>
-    </div>
-  ```
+-checkAll()
+    This function checks all the checkboxes in the view section. Assigned to the checkAllButton.
 
-  Bad way 👎🏿:
+-edit()
+    The edit function has two phases. When you first click the edit button its text changes to "save" and all the todo-texts are converted into
+    text inputs that allows you to edit their content. when the client is done editing, he can press the editButton again which now says "save" and save your editing,
+    and changes the time of the edited lines to the time the client saved. In addition, it deletes all the lines that have a blank text using the deleteClass function.
 
-  ```
-    <div class="todo-container">
-      <div class="todo-priority">
-        1
-      </div>
-      <div class="todo-created-at">
-        2020-06-18 11:51:12
-      </div>
-      <div class="todo-text">
-        <span>the todo text</span>
-      </div>
-    </div>
-  ```
+Next is the toolbar which can be dragged and stay in a fixed position inside the borders of the window to the client convenience. inside the toolbar there are 3 different
+divs. The first is the title, which is the only part that will trigger the dragging function. Inside, there are 2 labels that represent the other divs inside the toolbar
+that collapse and expand by clicking on them.
+The second div is the tools div which contains most of the tools and buttons of the project.
+The third div is the colors div that contains all the colors that are used in the project and enables the client to mess with the colors of the elements
+at his will using functions i will describe later.
 
-- Add a counter element to reflect the **current** number of todos stored in the app. This element should have an id of `counter`.
+-getColors()
+    This function happens on the first time the window is loaded to get the colors of the css variables used in the stylesheet and insert them into the
+    color inputs in the color div inside the toolbar. in addition the function adds an onchange eventListener to all the inputs to change the colors of 
+    the css variables to match them whenever they are changed.
 
-- Add a button with id `sort-button`. Clicking this element should resort the todo list by their todos priority (DESC)
+-hide(div)+show(div)
+    These functions get a div as an argument and are triggered when the client clicks the labels in the toolbar title. These functions
+    expand or collapse the given div according to the label the client clicked on.
 
-  ![alt text](./readme-files/todo.gif)
+-the local storage section is commented because there was no need to use it after the data transfer to JSON.bin.
 
-- **Make your todo-list persistent!**
+JSON-bin
 
-  Save your todo-list as JSON (see `todo-list-example.json`) and store it in a persistent way, you have to options:
+-put()
+    This function gets a list of containers and converting it to an array of items with the priorities of test,date,property and checkbox then sending that array inside
+    an object called "my-todo" and a number which is the current version of the bin inside an object called "version" to the bin.
 
-  1. Use the `localStorage` browser api to save / load the todo-list JSON **with the 'my-todo' key**. This option will make it persist between _page reloads_.
+-get()
+    This function receives the info from the bin assigns the "my-todo" object into an array and the version into the currentVersion variable. It proceeds to 
+    call the functions createElements and assignValues to add the items from the array to the viewSection, and resets the undo counter which we will get to later.
 
-  2. Use the [jsonbin.io](https://jsonbin.io/) service api (using async/await fetch GET & PUT requests) to save / load your todo-list JSON. This option will make it persist across _devices and browsers_.
+-loadBin()
+    This function does all the things that are needed when launching the window like getting the colors, getting the info from the bin and translating it to
+    elements and assigning the undo counter and currentVersion.
 
-**Note** You can add extra properties to the todo objects in the JSON that you want to be persistent.
+-undoBin()
+    This function allows the client to undo changes by going back to previous versions of the bin without loosing progress of their list.
+    First, it resets all the view-section, and then it gets the information from the previous(or earlier if clicked more times) version of the same bin.
+    It also changes the undo counter the displays it on the screen so the client will know where he is at all times.
 
-## Bonus
 
-- jsonbin.io - see explanation above
-- Freestyle - add any feature you desire. Some ideas:
-  - [drag n' drop functionality](https://htmldom.dev/drag-and-drop-element-in-a-list)
-  - Delete + Edit a todo
-  - Undo action
-  - Search and highlight results
-  - Loading spinner for network request
-  - Mark/Unmark todo as done
-  - Something awesome we didn't think of...
-- For added value, you can add jest/puppeteer test to test any bonus feature you implemented
 
-**Add an explanation in `README.md` for each bonus feature you add and a link to any resoure you used**
 
-## Grading policy
 
-- Your project will be graded by the number of automatic tests you pass
-- Using jsonbin.io
-- Extra freestyle features - Please add an explanation about the bonus features you added to the readme.md
-- new jest/puppeteer test
-- Code quality and style: indentation, Meaningful and non-disambiguate variable names, Comments documentation
-- Visual creativity, use css to make this app look awesome 💅🏿
-- Division to reusable functions, no code duplication
-- Git usage: meaningful commit messages, small commits, folder and file structures
-
-## Submitting
-
-- Change this file (README.md) and style it to showcase your solution (gifs, explanations, link to the github page, links to resources you used, etc...)
-- Submit your solution repo to the [ChallengeMe](http://challengeme.suvelocity.org/) system
-- Submit your repo link and github page and video to Google Classroom
-- Record a 5-10 min selfie video, describe yourself in a few words (age, location, military background, technological background). Also, talk about the solution you submitted (try to explain how your app works in general and which bonuses you added). Think about this video as an interview.
-
-GOOD LUCK!
