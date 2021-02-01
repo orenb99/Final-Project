@@ -171,11 +171,10 @@ function deleteClass(className){
     if(typeof className!=="string")
         className="checked";
     let checkedLines=viewSection.getElementsByClassName(className);
-    counterChange();
     while(checkedLines.length!==0){
         viewSection.removeChild(checkedLines[0]);
     }
-    updateBin();
+    counterChange();
 }
 
 function checkAll(){

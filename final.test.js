@@ -64,9 +64,9 @@ const projectName = "pre.Todo App";
 describe(projectName, () => {
   beforeAll(async () => {
     browser = await puppeteer.launch({
-      // headless: false, // Uncomment me to see tests running in browser
+      headless: false, // Uncomment me to see tests running in browser
       args: ["--disable-web-security"],
-      // slowMo: 50, // Uncomment and change me to slow down tests speed in browser.
+      slowMo: 50, // Uncomment and change me to slow down tests speed in browser.
     });
     page = await browser.newPage();
     useNock(page, ["https://api.jsonbin.io/v3"]);
@@ -216,6 +216,7 @@ describe(projectName, () => {
     expect(secondItemPriority).toBe(mockToDo.priority);
   });
 
+
   test("If data structure is correct in localStorage", async () => {
     const dataInLocalStorage = await page.evaluate(() => {
       return localStorage.getItem("my-todo");
@@ -253,4 +254,24 @@ describe(projectName, () => {
     expect(text).toBe(mocks.fetchTest.record["my-todo"][0].text);
     expect(priority).toBe(mocks.fetchTest.record["my-todo"][0].priority);
   });
+
+  test("Can delete all", async () => {
+    await nock("https://api.jsonbin.io/v3")
+      .get(/.*/)
+      .reply(200, mocks.toDoAddSecondResponse);
+
+    await page.goto(path, { waitUntil: "networkidle0" });
+    const mockToDo = mockToDos[1];
+
+    await page.click("#check-all-button");
+    await page.click("#delete-button");
+
+    const counterElement = await page.$("#counter");
+    const currentCounter = await (
+      await counterElement.getProperty("innerText")
+    ).jsonValue();
+    
+    expect(currentCounter).toBe("0");
+  });
+
 });
