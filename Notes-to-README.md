@@ -4,7 +4,11 @@ file:///C:/Users/USER/Documents/GitHub/pre-course-2021-final-boilerplate/src/ind
 
 Link to the site that helped with the drag&drop option.
 https://javascript.info/mouse-drag-and-drop
-(./src/imgs/page-sample.png)
+
+
+
+ ![alt text](./readme-files/todo.gif)
+
 My todo-list final project
 
 In this readme i will explain about my project.
