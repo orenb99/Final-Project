@@ -18,7 +18,7 @@ const checkAllButton=document.getElementById("check-all-button");
 body.onload=loadBin;
 addButton.addEventListener("click",addToList);
 sortButton.addEventListener("click",prioritize);
-deleteButton.addEventListener("click",deleteChecked);
+deleteButton.addEventListener("click",deleteClass);
 editButton.addEventListener("click",edit);
 undoButton.addEventListener("click",undoBin);
 checkAllButton.onclick=checkAll;
@@ -167,20 +167,15 @@ function checked(){
 
 }
 
-function deleteChecked(){
-    let checkedLines=viewSection.getElementsByClassName("checked");
+function deleteClass(className){
+    if(typeof className!=="string")
+        className="checked";
+    let checkedLines=viewSection.getElementsByClassName(className);
     counterChange();
     while(checkedLines.length!==0){
         viewSection.removeChild(checkedLines[0]);
     }
     updateBin();
-}
-function deleteEmpty(){
-    let checkedLines=viewSection.getElementsByClassName("empty");
-    counterChange();
-    while(checkedLines.length!==0){
-        viewSection.removeChild(checkedLines[0]);
-    }
 }
 
 function checkAll(){
@@ -238,7 +233,7 @@ function edit(){
                 containers[i].classList.add("empty");
             }
         }
-        deleteEmpty();
+        deleteClass("empty");
         updateBin();
     }
     
