@@ -8,7 +8,7 @@
     --border1 :#101010;
 }
 #body{
-    font-family: "Apple Chancery", cursive;
+    /* font-family: "Apple Chancery", cursive; */
     color: var(--p1color);
     background-color: var(--bg);
     transition: 1s;
@@ -111,8 +111,8 @@ button:hover{
     text-align: center;
     position: fixed;
     z-index: 3;
-    top:30vh;
-    left: 50vw;
+    top:5vh;
+    left: 70vw;
     background-color:var(--p2color);
     color: var(--bg);
     border-style:solid;

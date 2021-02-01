@@ -2,6 +2,9 @@
 GitHub-pages Link:
 file:///C:/Users/USER/Documents/GitHub/pre-course-2021-final-boilerplate/src/index.html
 
+Link to the site that helped with the drag&drop option.
+https://javascript.info/mouse-drag-and-drop
+
 My todo-list final project
 
 In this readme i will explain about my project.
@@ -39,8 +42,38 @@ JS functions:
 -checked()
     This function adds a "checked" style to all the containers with a checked checkbox
 
--deleteChecked()
-    This function deletes all the containers with a checked checkbox and is assigned to the delete button
+-deleteClass(className)
+    This function deletes all the containers with a certain class name or the checked class if no class name is given. this function is assigned to
+    the delete button as an eventListener
+
+-checkAll()
+    This function checks all the checkboxes in the view section. Assigned to the checkAllButton.
+
+-edit()
+    The edit function has two phases. When you first click the edit button its text changes to "save" and all the todo-texts are converted into
+    text inputs that allows you to edit their content. when the client is done editing, he can press the editButton again which now says "save" and save your editing,
+    and changes the time of the edited lines to the time the client saved. In addition, it deletes all the lines that have a blank text using the deleteClass function.
+
+Next is the toolbar which can be dragged and stay in a fixed position inside the borders of the window to the client convenience. inside the toolbar there are 3 different
+divs. The first is the title, which is the only part that will trigger the dragging function. Inside, there are 2 labels that represent the other divs inside the toolbar
+that collapse and expand by clicking on them.
+The second div is the tools div which contains most of the tools and buttons of the project.
+The third div is the colors div that contains all the colors that are used in the project and enables the client to mess with the colors of the elements
+at his will using functions i will describe later.
+
+-getColors()
+    This function happens on the first time the window is loaded to get the colors of the css variables used in the stylesheet and insert them into the
+    color inputs in the color div inside the toolbar. in addition the function adds an onchange eventListener to all the inputs to change the colors of 
+    the css variables to match them whenever they are changed.
+
+-hide(div)+show(div)
+    These functions get a div as an argument and are triggered when the client clicks the labels in the toolbar title. These functions
+    expand or collapse the given div according to the label the client clicked on.
+
+-the local storage section is commented because there was no need to use it after the data transfer to JSON.bin.
+
+
+
 
 
 

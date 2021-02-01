@@ -242,7 +242,7 @@ function edit(){
 toolbar.addEventListener("mousedown",function(event){
     event.preventDefault();
     let target=event.target;
-    if(target.id==="toolbar-title"||target.tagName==="H1"||target.id==="tools"){
+    if(target.id==="toolbar-title"||target.tagName==="H1"){
         toolbar.addEventListener("mousemove",dragging);
         toolbar.addEventListener("mouseup",stopped);
         body.addEventListener("mouseleave",stopped);
