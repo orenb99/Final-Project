@@ -7,7 +7,6 @@ https://javascript.info/mouse-drag-and-drop
 
 
 ![alt text](./src/imgs/page-sample.png)
- ![alt text](./readme-files/todo.gif)
 
 My todo-list final project
 
