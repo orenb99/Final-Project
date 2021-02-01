@@ -6,7 +6,7 @@ Link to the site that helped with the drag&drop option.
 https://javascript.info/mouse-drag-and-drop
 
 
-![alt text](./src/imgs/sample-page.png)
+![alt text](./src/imgs/page-sample.png)
  ![alt text](./readme-files/todo.gif)
 
 My todo-list final project
