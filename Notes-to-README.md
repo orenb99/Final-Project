@@ -1,6 +1,6 @@
 
 GitHub-pages Link:
-file:///C:/Users/USER/Documents/GitHub/pre-course-2021-final-boilerplate/src/index.html
+https://orenb99.github.io/pre-course-2021-final-boilerplate/src/index.html
 
 Link to the site that helped with the drag&drop option.
 https://javascript.info/mouse-drag-and-drop
