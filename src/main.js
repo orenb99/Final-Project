@@ -282,13 +282,13 @@ toolbar.addEventListener("mousedown",function(event){
 toolbar.addEventListener("click",function(event){
     let target=event.target;
     if(target.id==="colors-label"){
-        // toolbar.querySelector("#tools").style.height="0";
-        // toolbar.querySelector("#colors").style.height="110px";
-        hide(toolbar.querySelector("#colors"));
+        hide(toolbar.querySelector("#tools"));
+        show(toolbar.querySelector("#colors"));
+        toolbar.querySelector("#colors").hidden=false;
     }
     else if(target.id==="tools-label"){
-        toolbar.querySelector("#tools").style.height="100px";
-        toolbar.querySelector("#colors").style.height="0";
+        hide(toolbar.querySelector("#colors"));
+        show(toolbar.querySelector("#tools"))
     }
 
 })
@@ -302,10 +302,33 @@ for(let input of colorInputs){
 }
 }
 function hide(div){
-div.style.height="0";
-div.style.visibility="hidden";
-let children=div.children();
-console.log(children);
+    div.style.height="0";
+    div.style.visibility="hidden";
+    div.style.borderStyle= "hidden";
+    if(div.id==="colors"){
+        div.style.top="-20%";
+    }
+    let children=div.children;
+    for(let child of children){
+        child.style.visibility="hidden";
+        child.style.opacity="0%";
+        child.style.transition= "0.5s";
+    }
+}
+function show(div){
+    div.style.height="110px";
+    div.style.visibility="visible";
+    div.style.borderStyle= "solid";
+    if(div.id==="colors"){
+        div.style.top="0";
+    }
+    let children=div.children;
+    for(let child of children){
+        child.style.visibility="visible";
+        child.style.opacity="100%";
+        child.style.transitionProperty= "opacity";
+        child.style.transition= "0.5s";
+    }
 }
 
 
