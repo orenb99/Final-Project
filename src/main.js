@@ -423,6 +423,7 @@ function put(containers) {
 
 
 function get() {
+    spinner.hidden=false;
     const init = {
         method: "GET"
     }
@@ -440,22 +441,26 @@ function get() {
                 assignValues(container,item.priority,item.date,item.text);
         }
         undoCounter=0;
+        spinner.hidden=true;
         })
     });
     getColors();
     }
 
 function updateBin(){
+    spinner.hidden=false;
     let containers=viewSection.querySelectorAll(".todo-container");
     counterChange();
     put(containers);
     undoCounter=0;
     undoText.innerText=parseInt(currentVersion-undoCounter);
     versionText.innerText=currentVersion;
+    spinner.hidden=true;
 
 }
 let undoCounter=0;
 function undoBin(){
+    spinner.hidden=false;
     if(editButton.innerText==="save"){
         alert("Stop Editing to undo");
         return;
@@ -479,6 +484,7 @@ function undoBin(){
             counterChange();
             undoText.innerText=parseInt(currentVersion-undoCounter);
             versionText.innerText=currentVersion;
+            spinner.hidden=true;
         });
     });
 }
