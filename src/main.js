@@ -421,22 +421,24 @@ async function put(containers) {
 }
 
 
-async function get() {
+function get() {
     const init = {
         method: "GET"
     }
     const request = new Request(root + binId + "/latest", init);
-    const response = await fetch(request);
-    const body = await response.json();
-    let itemArray=body.record["my-todo"];
-    currentVersion=body.record["version"];
-    if(itemArray===null)
-        return;
-    for(let item of itemArray){
-        let container=addElements();
-        assignValues(container,item.priority,item.date,item.text);
-    }
-    undoCounter=0;
+    const response = fetch(request).then(firstResponse=>{
+        const body = firstResponse.json().then(secondResponse=>{
+            let itemArray=secondResponse.record["my-todo"];
+            currentVersion=secondResponse.record["version"];
+            if(itemArray===null)
+                return;
+            for(let item of itemArray){
+                let container=addElements();
+                assignValues(container,item.priority,item.date,item.text);
+        }
+        undoCounter=0;
+        })
+    });
     }
 
 async function loadBin(){
