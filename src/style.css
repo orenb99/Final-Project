@@ -202,3 +202,8 @@ input[type="color"]{
     margin: 5px;
     transition: 1s;
 }
+#spinner{
+    width: 30px;
+    position: relative;
+    top: 10px;
+}

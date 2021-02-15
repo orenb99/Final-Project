@@ -14,6 +14,7 @@ const versionText=document.getElementById("version");
 const undoText=document.getElementById("undoings");
 const toolbar=document.getElementById("toolbar");
 const checkAllButton=document.getElementById("check-all-button");
+const spinner=document.getElementById("spinner");
 //function calls and event listeners
 body.onload=get;
 addButton.addEventListener("click",addToList);
