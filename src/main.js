@@ -19,10 +19,11 @@ const spinner=document.getElementById("spinner");
 body.onload=get;
 addButton.addEventListener("click",addToList);
 sortButton.addEventListener("click",prioritize);
-deleteButton.addEventListener("click",deleteClass);
+deleteButton.addEventListener("click",deleteByClass);
 editButton.addEventListener("click",edit);
 undoButton.addEventListener("click",undoBin);
 checkAllButton.onclick=checkAll;
+//adding items
 function addToList(){
     if(textInput.value!==""&&editButton.innerText==="edit mode"){
         let correctDate=convertTimeFormat(new Date());
@@ -37,7 +38,7 @@ function addToList(){
         textInput.focus();
     }
 }
-
+//assigning values to the items
 function assignValues(container,priority,date,text){
     container.querySelector(".todo-priority").innerText=priority;
     container.querySelector(".todo-text").innerText=text;
@@ -45,7 +46,7 @@ function assignValues(container,priority,date,text){
     priorityClass();
     textInput.value="";
 }
-
+//creating the elements
 function addElements(){
     let container=document.createElement("div");
     let itemPriority=document.createElement("div");
@@ -96,7 +97,7 @@ function addElements(){
     return container;
 
 }
-
+//changing the time format to SQL
 function convertTimeFormat(date){
     let timeString=date.toTimeString();
     timeString=timeString.slice(0,timeString.indexOf("G")-1);
@@ -110,7 +111,7 @@ function convertTimeFormat(date){
     dateString+=monthString+dayString+" "+timeString;
     return dateString;
 }
-
+//updating the counter
 function counterChange(){
     counter.innerText=""+(viewSection.querySelectorAll(".todo-container").length);
     if(counter.innerText==="1")
@@ -121,7 +122,7 @@ function counterChange(){
         counter.nextSibling.nextSibling.innerText+="! You're free!";
 }
 
-
+//sorting the list
 function prioritize(){
     if(editButton.innerText==="save"){
         alert("Stop editing to sort");
@@ -141,20 +142,18 @@ function prioritize(){
             viewSection.append(item);
     }
 }
+//adding class to the container according to the priority
 function priorityClass(){
     let itemsList=document.getElementsByClassName("todo-container");
     for(let item of itemsList){
-        item.classList.remove("p1");
-        item.classList.remove("p2")
-        item.classList.remove("p3")
-        item.classList.remove("p4")
-        item.classList.remove("p5")
+        item.classList.remove("p1","p2","p3","p4","p5");
     }
     for(let item of itemsList){
         item.classList.add("p"+item.querySelector(".todo-priority").innerText)
     }
 
 }
+//adding a checked class to the checked containers
 function checked(){
     let checkboxes=viewSection.querySelectorAll(".checkbox");
     for(let box of checkboxes){
@@ -167,8 +166,8 @@ function checked(){
     }
 
 }
-
-function deleteClass(className){
+//delete  all items with a certain class
+function deleteByClass(className){
     if(typeof className!=="string")
         className="checked";
     let checkedLines=viewSection.getElementsByClassName(className);
@@ -176,8 +175,9 @@ function deleteClass(className){
         viewSection.removeChild(checkedLines[0]);
     }
     counterChange();
+    updateBin();
 }
-
+//checking all items
 function checkAll(){
     let checkboxes=viewSection.querySelectorAll(".checkbox")
     if(checkAllButton.innerText==="Check all"){
@@ -195,7 +195,7 @@ function checkAll(){
 
 }
 
-
+//editing the list
 let tempContainers=[];
 function edit(){
     if(counter.innerText==="0"){
@@ -233,7 +233,7 @@ function edit(){
                 containers[i].classList.add("empty");
             }
         }
-        deleteClass("empty");
+        deleteByClass("empty");
         updateBin();
     }
     
@@ -287,6 +287,7 @@ toolbar.addEventListener("click",function(event){
     }
 
 })
+//getting the colors from the css
 function getColors(){
 let colorInputs=toolbar.querySelectorAll(`input[type="color"]`);
 for(let input of colorInputs){
@@ -296,6 +297,7 @@ for(let input of colorInputs){
     };
 }
 }
+//hide and show the toolbar sub menu
 function hide(div){
     div.style.height="0";
     div.style.visibility="hidden";
@@ -395,6 +397,7 @@ function show(div){
 const root = "https://api.jsonbin.io/v3/b/";
 const binId = "601696a5abdf9c55679555d5";
 let currentVersion;
+//adding items to the bin
 function put(containers) {
     let itemArray=[];
     for(let item of containers){
@@ -421,7 +424,7 @@ function put(containers) {
     const response =fetch(request);
 }
 
-
+//getting items from the bin
 function get() {
     spinner.hidden=false;
     const init = {
@@ -446,7 +449,7 @@ function get() {
     });
     getColors();
     }
-
+//update the list according to the bin
 function updateBin(){
     spinner.hidden=false;
     let containers=viewSection.querySelectorAll(".todo-container");
@@ -458,6 +461,7 @@ function updateBin(){
     spinner.hidden=true;
 
 }
+//go one version backwards
 let undoCounter=0;
 function undoBin(){
     spinner.hidden=false;
