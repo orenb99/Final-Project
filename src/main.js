@@ -15,7 +15,7 @@ const undoText=document.getElementById("undoings");
 const toolbar=document.getElementById("toolbar");
 const checkAllButton=document.getElementById("check-all-button");
 //function calls and event listeners
-body.onload=loadBin;
+body.onload=get;
 addButton.addEventListener("click",addToList);
 sortButton.addEventListener("click",prioritize);
 deleteButton.addEventListener("click",deleteClass);
@@ -394,7 +394,7 @@ function show(div){
 const root = "https://api.jsonbin.io/v3/b/";
 const binId = "601696a5abdf9c55679555d5";
 let currentVersion;
-async function put(containers) {
+function put(containers) {
     let itemArray=[];
     for(let item of containers){
         itemArray.push({
@@ -417,7 +417,7 @@ async function put(containers) {
         body: jsonString,
     }
     const request = new Request(root + binId, init);
-    const response = await fetch(request);
+    const response =fetch(request);
 }
 
 
@@ -430,6 +430,8 @@ function get() {
         const body = firstResponse.json().then(secondResponse=>{
             let itemArray=secondResponse.record["my-todo"];
             currentVersion=secondResponse.record["version"];
+            undoText.innerText=parseInt(currentVersion-undoCounter);
+            versionText.innerText=currentVersion;
             if(itemArray===null)
                 return;
             for(let item of itemArray){
@@ -439,18 +441,13 @@ function get() {
         undoCounter=0;
         })
     });
+    getColors();
     }
 
-async function loadBin(){
-    getColors();
-    await get();
-    undoText.innerText=parseInt(currentVersion-undoCounter);
-    versionText.innerText=currentVersion;
-}
-async function updateBin(){
+function updateBin(){
     let containers=viewSection.querySelectorAll(".todo-container");
     counterChange();
-    await put(containers);
+    put(containers);
     undoCounter=0;
     undoText.innerText=parseInt(currentVersion-undoCounter);
     versionText.innerText=currentVersion;
