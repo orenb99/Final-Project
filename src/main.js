@@ -454,7 +454,7 @@ function updateBin(){
 
 }
 let undoCounter=0;
-async function undoBin(){
+function undoBin(){
     if(editButton.innerText==="save"){
         alert("Stop Editing to undo");
         return;
@@ -468,14 +468,16 @@ async function undoBin(){
         method: "GET"
     }
     const request = new Request(root + binId + "/"+(currentVersion-undoCounter), init);
-    const response = await fetch(request);
-    const body = await response.json();
-    let itemArray=body.record["my-todo"];
-    for(let item of itemArray){
-        let container=addElements();
-        assignValues(container,item.priority,item.date,item.text);
-    }
-    counterChange();
-    undoText.innerText=parseInt(currentVersion-undoCounter);
-    versionText.innerText=currentVersion;
+    const response = fetch(request).then(firstResponse=>{
+        const body =firstResponse.json().then(secondResponse=>{
+            let itemArray=secondResponse.record["my-todo"];
+            for(let item of itemArray){
+                let container=addElements();
+                assignValues(container,item.priority,item.date,item.text);
+            }
+            counterChange();
+            undoText.innerText=parseInt(currentVersion-undoCounter);
+            versionText.innerText=currentVersion;
+        });
+    });
 }
