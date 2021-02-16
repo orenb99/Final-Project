@@ -1,20 +1,20 @@
 let myTodo=[{
-text:"yes",
-priority:1,
-date:new Date(),
-checked:false
+    id: 1,
+    text:"1",
+    priority:1,
+    date:new Date(),
+    checked:false
 }];
 
-let todoItem=[myTodo,version];
 function addItem(text,priority,date,checked){
     myTodo.push({
+        id:(myTodo.length+1),
         text: text,
         priority: priority,
         date: date,
         checked:checked
     });
 }
-addItem("yes",2,new Date(),false);
 
 const { response } = require('express');
 const express = require('express');
@@ -23,12 +23,17 @@ app.use(express.json());
 
 
 app.get("/",(req,res)=>{
-    res.send(todoItem);
+    res.send(myTodo);
+})
+
+app.get("/myTodo/:id",(req,res)=>{
+    const id=req.params.id;
+    if(id>myTodo.length||id<=0)
+        res.send("no such id");
 })
 
 app.put("/",(req,res)=>{
-    res.send(req.body);
-    //res.send(addItem("3",3,new Date(),false));
+    res.send(addItem("2",2,new Date(),false));
 })
 
 
