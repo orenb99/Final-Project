@@ -4,7 +4,6 @@ priority:1,
 date:new Date(),
 checked:false
 }];
-let version=1;
 
 let todoItem=[myTodo,version];
 function addItem(text,priority,date,checked){
@@ -16,13 +15,20 @@ function addItem(text,priority,date,checked){
     });
 }
 addItem("yes",2,new Date(),false);
-module.exports=todoItem;
+
 const { response } = require('express');
 const express = require('express');
 const app = express();
 app.use(express.json());
+
+
 app.get("/",(req,res)=>{
-    res.send("yo");
+    res.send(todoItem);
+})
+
+app.put("/",(req,res)=>{
+    res.send(req.body);
+    //res.send(addItem("3",3,new Date(),false));
 })
 
 
