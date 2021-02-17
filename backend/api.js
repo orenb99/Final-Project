@@ -2,7 +2,7 @@ const fs = require("fs");
 
 function createItem(text,priority,date,checked){
    return {
-        id: Math.floor(Math.random()*1000000),
+        id: Math.floor(Math.random()*100000000),
         text: text,
         priority: priority,
         date: date,
@@ -10,7 +10,6 @@ function createItem(text,priority,date,checked){
     };
 }
 const express = require('express');
-const { create } = require("istanbul-reports");
 const app = express();
 app.use(express.json());
 
@@ -75,6 +74,21 @@ app.delete("/:id", (req,res)=>{
   }
   catch{
     res.send("file doesn't exist");
+  }
+})
+
+app.delete("/todo/all", (req,res)=>{
+  try{
+  fs.readdir(`./database/`,(err,files)=>{
+    for(let file of files){
+      fs.unlinkSync(`./database/${file}`);
+    }
+  });
+  res.send(`all items deleted`);
+  console.log("database cleared");
+  }
+  catch(e){
+    res.send(e);
   }
 })
 app.listen(3000);
