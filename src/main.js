@@ -118,12 +118,15 @@ function convertTimeFormat(date){
 //updating the counter
 function counterChange(){
     counter.innerText=""+(viewSection.querySelectorAll(".todo-container").length);
+    console.log(counter.innerText)
     if(counter.innerText==="1")
         counter.nextSibling.nextSibling.innerText="Thing to do";
+    else if(counter.innerText==="Loading")
+        counter.nextSibling.nextSibling.innerText=" Things to do";
     else
         counter.nextSibling.nextSibling.innerText="Things to do";
     if(counter.innerText==="0")
-        counter.nextSibling.nextSibling.innerText+="! You're free!";
+        counter.nextSibling.nextSibling.innerText="Things to do! You're free!";
 }
 
 //sorting the list
@@ -179,7 +182,6 @@ function deleteByClass(className){
     while(checkedLines.length!==0){
         viewSection.removeChild(checkedLines[0]);
     }
-    counterChange();
     updateBin();
 }
 //checking all items
@@ -402,7 +404,7 @@ function show(div){
 const root = "http://localhost:3000/";
 let currentVersion;
 //adding items to the bin
-function post(containers) {
+async function post(containers) {
     let itemArray=[];
     for(let item of containers){
         itemArray.push({
@@ -425,12 +427,12 @@ function post(containers) {
         body: jsonString,
     }
     const request = new Request(root, init);
-    const response =fetch(request);
+    const response = await fetch(request);
 }
 
 //getting items from the bin
 function get() {
-    spinner.hidden=false;
+    updateSpinner("show");
     const init = {
         method: "GET"
     }
@@ -448,27 +450,26 @@ function get() {
                 assignValues(container,item.priority,item.date,item.text);
         }
         undoCounter=0;
-        spinner.hidden=true;
+        updateSpinner("hide");
         })
     });
     getColors();
     }
 //update the list according to the bin
-function updateBin(){
-    spinner.hidden=false;
+async function updateBin(){
+    updateSpinner("show");
     let containers=viewSection.querySelectorAll(".todo-container");
-    counterChange();
-    post(containers);
+    await post(containers);
     undoCounter=0;
     undoText.innerText=parseInt(currentVersion-undoCounter);
     versionText.innerText=currentVersion;
-    spinner.hidden=true;
+    updateSpinner("hide");
 
 }
 //go one version backwards
 let undoCounter=0;
 function undoBin(){
-    spinner.hidden=false;
+    updateSpinner("show");
     if(editButton.innerText==="save"){
         alert("Stop Editing to undo");
         return;
@@ -483,7 +484,7 @@ function undoBin(){
         method: "GET"
     }
     if(undoCounter>currentVersion){
-        spinner.hidden=true;
+        updateSpinner("hide");
         return;
     }
     const request = new Request(root +(currentVersion-undoCounter), init);
@@ -494,10 +495,9 @@ function undoBin(){
                 let container=addElements();
                 assignValues(container,item.priority,item.date,item.text);
             }
-            counterChange();
             undoText.innerText=parseInt(currentVersion-undoCounter);
             versionText.innerText=currentVersion;
-            spinner.hidden=true;
+            updateSpinner("hide");
         });
     });
 }
@@ -505,7 +505,7 @@ function undoBin(){
 function deleteCache(){
     if(!confirm("are u sure you want do reset your data?"))
         return;
-    spinner.hidden=false;
+    updateSpinner("show");
     editButton.text="edit";
     let containers=viewSection.querySelectorAll(".todo-container");
     for(let item of containers){
@@ -516,12 +516,29 @@ function deleteCache(){
     }
     const request = new Request(root +("todo/all"), init);
     const response = fetch(request).then(firstResponse=>{
-            counterChange();
-            spinner.hidden=true;
+            updateSpinner("hide");
             undoCounter=0;
             currentVersion=0;
             undoText.innerText=0;
             versionText.innerText=0;
         });
 
+}
+
+function updateSpinner(stance){
+    let otherItems = document.getElementsByClassName("not-spinner");
+    switch (stance){
+        case "show":
+            spinner.hidden=false;
+            for(let item of otherItems)
+                item.hidden=true;
+            counter.innerText="Loading";
+            break;
+        case "hide":
+            spinner.hidden=true;
+            for(let item of otherItems)
+                item.hidden=false;
+            counterChange();
+            break;
+    }
 }
