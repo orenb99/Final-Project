@@ -188,12 +188,12 @@ label:hover{
     border-color: var(--border1);
     border-style: solid;
     transition: 1s;
-    height: 110px;
+    height: 130px;
 }
 #tools{
     border: var(--border1) solid ;
     transition: 1s;
-    height: 100px;
+    height: 130px;
 }
 
 input[type="color"]{

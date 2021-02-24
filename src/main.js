@@ -15,6 +15,7 @@ const undoText=document.getElementById("undoings");
 const toolbar=document.getElementById("toolbar");
 const checkAllButton=document.getElementById("check-all-button");
 const spinner=document.getElementById("spinner");
+const clearButton=document.getElementById("clear-cache");
 //function calls and event listeners
 body.onload=get;
 addButton.addEventListener("click",addToList);
@@ -22,6 +23,7 @@ sortButton.addEventListener("click",prioritize);
 deleteButton.addEventListener("click",deleteByClass);
 editButton.addEventListener("click",edit);
 undoButton.addEventListener("click",undoBin);
+clearButton.addEventListener("click",deleteCache);
 checkAllButton.onclick=checkAll;
 //adding items
 function addToList(){
@@ -80,12 +82,14 @@ function addElements(){
         if(parseInt(itemPriority.innerText)<5){
             parseInt(itemPriority.innerText++);
             priorityClass()
+            updateBin();
         }
     });
     decPriorityButton.addEventListener("click",function (){
         if(parseInt(itemPriority.innerText)>1){
             parseInt(itemPriority.innerText--);
             priorityClass()
+            updateBin()
         }
     });
     
@@ -141,6 +145,7 @@ function prioritize(){
     for(let item of sortedArr){
             viewSection.append(item);
     }
+    updateBin();
 }
 //adding class to the container according to the priority
 function priorityClass(){
@@ -313,7 +318,7 @@ function hide(div){
     }
 }
 function show(div){
-    div.style.height="110px";
+    div.style.height="130px";
     div.style.visibility="visible";
     div.style.borderStyle= "solid";
     if(div.id==="colors"){
@@ -394,11 +399,10 @@ function show(div){
 // }
 
 //JSON.bin
-const root = "https://api.jsonbin.io/v3/b/";
-const binId = "601696a5abdf9c55679555d5";
+const root = "http://localhost:3000/";
 let currentVersion;
 //adding items to the bin
-function put(containers) {
+function post(containers) {
     let itemArray=[];
     for(let item of containers){
         itemArray.push({
@@ -410,17 +414,17 @@ function put(containers) {
     }
     currentVersion++;
     const sendObject = {
-        "my-todo":itemArray, "version":currentVersion
+        "myTodo":itemArray, "id":currentVersion
     };
     const jsonString = JSON.stringify(sendObject);
     const init = {
-        method: "PUT",
+        method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: jsonString,
     }
-    const request = new Request(root + binId, init);
+    const request = new Request(root, init);
     const response =fetch(request);
 }
 
@@ -430,14 +434,14 @@ function get() {
     const init = {
         method: "GET"
     }
-    const request = new Request(root + binId + "/latest", init);
+    const request = new Request(root , init);
     const response = fetch(request).then(firstResponse=>{
         const body = firstResponse.json().then(secondResponse=>{
-            let itemArray=secondResponse.record["my-todo"];
-            currentVersion=secondResponse.record["version"];
+            let itemArray=secondResponse["myTodo"];
+            currentVersion=secondResponse["id"];
             undoText.innerText=parseInt(currentVersion-undoCounter);
             versionText.innerText=currentVersion;
-            if(itemArray===null)
+            if(itemArray===null||itemArray===undefined)
                 return;
             for(let item of itemArray){
                 let container=addElements();
@@ -454,7 +458,7 @@ function updateBin(){
     spinner.hidden=false;
     let containers=viewSection.querySelectorAll(".todo-container");
     counterChange();
-    put(containers);
+    post(containers);
     undoCounter=0;
     undoText.innerText=parseInt(currentVersion-undoCounter);
     versionText.innerText=currentVersion;
@@ -474,13 +478,18 @@ function undoBin(){
     for(let item of containers){
         item.remove();
     }
+        
     const init = {
         method: "GET"
     }
-    const request = new Request(root + binId + "/"+(currentVersion-undoCounter), init);
+    if(undoCounter>currentVersion){
+        spinner.hidden=true;
+        return;
+    }
+    const request = new Request(root +(currentVersion-undoCounter), init);
     const response = fetch(request).then(firstResponse=>{
         const body =firstResponse.json().then(secondResponse=>{
-            let itemArray=secondResponse.record["my-todo"];
+            let itemArray=secondResponse["myTodo"];
             for(let item of itemArray){
                 let container=addElements();
                 assignValues(container,item.priority,item.date,item.text);
@@ -491,4 +500,28 @@ function undoBin(){
             spinner.hidden=true;
         });
     });
+}
+
+function deleteCache(){
+    if(!confirm("are u sure you want do reset your data?"))
+        return;
+    spinner.hidden=false;
+    editButton.text="edit";
+    let containers=viewSection.querySelectorAll(".todo-container");
+    for(let item of containers){
+        item.remove();
+    }
+    const init = {
+        method: "DELETE"
+    }
+    const request = new Request(root +("todo/all"), init);
+    const response = fetch(request).then(firstResponse=>{
+            counterChange();
+            spinner.hidden=true;
+            undoCounter=0;
+            currentVersion=0;
+            undoText.innerText=0;
+            versionText.innerText=0;
+        });
+
 }
