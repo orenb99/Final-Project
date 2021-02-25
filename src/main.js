@@ -118,7 +118,6 @@ function convertTimeFormat(date){
 //updating the counter
 function counterChange(){
     counter.innerText=""+(viewSection.querySelectorAll(".todo-container").length);
-    console.log(counter.innerText)
     if(counter.innerText==="1")
         counter.nextSibling.nextSibling.innerText="Thing to do";
     else if(counter.innerText==="Loading")
@@ -533,12 +532,14 @@ function updateSpinner(stance){
             for(let item of otherItems)
                 item.hidden=true;
             counter.innerText="Loading";
+            viewSection.hidden=true;
             break;
         case "hide":
             spinner.hidden=true;
             for(let item of otherItems)
                 item.hidden=false;
             counterChange();
+            viewSection.hidden=false;
             break;
     }
 }
